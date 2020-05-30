@@ -1,0 +1,60 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:l="sap.ui.layout" xmlns:smartForm="sap.ui.comp.smartform"
+	xmlns:smartField="sap.ui.comp.smartfield" controllerName="smartTable.SmartTable.controller.Add" height="100%">
+	<Page title="Create new Requirement" showNavButton="true" navButtonPress=".onNavBack">
+		<VBox fitContainer="true">
+			<smartForm:SmartForm id="smartForm" editTogglable="true" title="Create Requirement" flexEnabled="false">
+				<smartForm:Group>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Title}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Priority}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Status}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Owner}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Category}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Solution}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Branch}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Scope}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Element}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement elementForLabel="1">
+						<smartField:SmartField value="{Business_Process_Expert_Name}">
+							<smartField:configuration>
+								<smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionAndId"/>
+							</smartField:configuration>
+						</smartField:SmartField>
+					</smartForm:GroupElement>
+				</smartForm:Group>
+				<smartForm:Group >
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Value_Points}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Effort_Points}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{ClassifAttribute}"/>
+					</smartForm:GroupElement>
+					<smartForm:GroupElement>
+						<smartField:SmartField value="{Description}"/>
+					</smartForm:GroupElement>
+				</smartForm:Group>
+			</smartForm:SmartForm>
+		</VBox>
+	</Page>
+</mvc:View>
