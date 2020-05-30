@@ -45,16 +45,17 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Requirements" class="sapUiSmallMargin" press=".onButtonPress">
-					<dependents>
-						<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
-					</dependents>
-				</Button>
 				<Button text="Work Package" class="sapUiSmallMargin" press=".onWorkPCackagePress">
 					<dependents>
 						<core:Fragment fragmentName="smartTable.SmartTable.view.WpAction" type="XML"/>
 					</dependents>
 				</Button>
+				<Button text="Requirements" class="sapUiSmallMargin" press=".onButtonPress">
+					<dependents>
+						<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
+					</dependents>
+				</Button>
+				
 			</OverflowToolbar>
 			<!--<OverflowToolbar>-->
 			<!--	<ToolbarSpacer/>-->
