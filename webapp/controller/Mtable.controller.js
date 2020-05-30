@@ -8,22 +8,22 @@ sap.ui.define([
 	FilterOperator,
 	FileUploader, Button, mobileLibrary, List, StandardListItem, Text) {
 	"use strict";
-	var that  ;
+	var that;
 	return Controller.extend("smartTable.SmartTable.controller.Mtable", {
 
 		onInit: function () {
-			that = this ;
+			that = this;
 			var oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessageModel = oMessageManager.getMessageModel(),
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
 					new Filter("technical", FilterOperator.EQ, true)),
 				oViewModel = new sap.ui.model.json.JSONModel({
-					busy : false,
-					hasUIChanges : false,
-					usernameEmpty : true,
-					order : 0
+					busy: false,
+					hasUIChanges: false,
+					usernameEmpty: true,
+					order: 0
 				});
-			
+
 			this.getView().setModel(oViewModel, "appView");
 			this.getView().setModel(oMessageModel, "message");
 
@@ -49,7 +49,7 @@ sap.ui.define([
 
 			var oSmartTab = this.getView().byId("smartTab");
 			var oFileUploader = sap.ui.core.Fragment.byId(fragmentId, "fileUploader");
-//			var oFileUploader = this.byId("fileUploader");
+			//			var oFileUploader = this.byId("fileUploader");
 			oFileUploader.upload();
 			if (!oFileUploader.getValue()) {
 				MessageToast.show("choose a file first");
@@ -106,9 +106,14 @@ sap.ui.define([
 		},
 		onCloseDialog: function () {
 			this._getDialog().close();
-		},		onButtonPress: function(oEvent) {
+		},
+		onButtonPress: function (oEvent) {
 			var oButton = oEvent.getSource();
 			that.byId("actionSheet").openBy(oButton);
+		},
+			onWorkPCackagePress: function (oEvent) {
+			var oButton = oEvent.getSource();
+			that.byId("actionWP").openBy(oButton);
 		}
 
 	});

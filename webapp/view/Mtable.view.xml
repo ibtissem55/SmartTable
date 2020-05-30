@@ -47,7 +47,7 @@
 						<OverflowToolbar>
 				<ToolbarSpacer/>
 				<Button
-		text="Open Action Sheet"
+		text="Requirements"
 		class="sapUiSmallMargin"
 		press=".onButtonPress">
 		<dependents>
@@ -55,7 +55,17 @@
 				fragmentName="smartTable.SmartTable.view.Action"
 				type="XML" />
 		</dependents>
-	</Button>	
+	</Button>
+		<Button
+		text="Work Packagew"
+		class="sapUiSmallMargin"
+		press=".onWorkPCackagePress">
+		<dependents>
+			<core:Fragment
+				fragmentName="smartTable.SmartTable.view.WpAction"
+				type="XML" />
+		</dependents>
+	</Button>
 	</OverflowToolbar>
 			<!--<OverflowToolbar>-->
 			<!--	<ToolbarSpacer/>-->
