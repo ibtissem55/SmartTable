@@ -33,5 +33,22 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				this.getRouter().navTo("View1", {}, true /*no history*/ );
 			}
 		}
+		// 	handleSubmit: function(oEvent){
+		// 	if ( this.verifForm() === false )
+		// 		return;
+		// 	var that = this;
+		// 	this.oModel.create("/requirementSet", requirement,{
+		// 		success: function(oData, oResponse){
+		// 			that.oRouter.navTo("View1", {});
+		// 			sap.m.MessageToast.show("Your requirement is created successfully");
+		// 			that.resetform();
+		// 		},
+		// 		error: function(err, oResponse){
+		// 			sap.m.MessageToast.show("Error while creating Requirement");
+		// 		}
+				
+		// 	});
+			
+		// }
 	});
 });
