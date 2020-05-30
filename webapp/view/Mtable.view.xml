@@ -7,7 +7,7 @@
 	<Page id="floatingFooterPage" title="Requirements Management" floatingFooter="true"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
 		<VBox fitContainer="false">
-			<smartVariantManagement:SmartVariantManagement id="pageVariantId" persistencyKey="PageVariantPKey" />
+			<smartVariantManagement:SmartVariantManagement id="pageVariantId" persistencyKey="PageVariantPKey"/>
 			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" smartVariant="pageVariantId" persistencyKey="SmartFilterPKey"
 				assignedFiltersChanged="onFiltersChanged" basicSearchFieldName="RequirementId" enableBasicSearch="true" considerSelectionVariants="true">
 				<smartFilterBar:controlConfiguration>
@@ -27,9 +27,8 @@
 			</smartFilterBar:SmartFilterBar>
 			<smartTable:SmartTable id="smartTab" entitySet="requirementSet" smartFilterId="smartFilterBar" smartVariant="pageVariantId"
 				useVariantManagement="true" useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport"
-				 showRowCount="true" persistencyKey="SmartTableAnalytical_Explored"
-				customData:useSmartField="false" customData:useSmartToggle="true" enableAutoBinding="true" class="sapUiResponsiveContentPadding"
-				tableBindingPath="oModelMNA>/">
+				showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" customData:useSmartField="false" customData:useSmartToggle="true"
+				enableAutoBinding="true" class="sapUiResponsiveContentPadding" tableBindingPath="oModelMNA>/">
 				<smartTable:layoutData>
 					<FlexItemData growFactor="1" baseSize="0%"/>
 				</smartTable:layoutData>
@@ -44,29 +43,19 @@
 			</smartTable:SmartTable>
 		</VBox>
 		<footer>
-						<OverflowToolbar>
+			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button
-		text="Requirements"
-		class="sapUiSmallMargin"
-		press=".onButtonPress">
-		<dependents>
-			<core:Fragment
-				fragmentName="smartTable.SmartTable.view.Action"
-				type="XML" />
-		</dependents>
-	</Button>
-		<Button
-		text="Work Packagew"
-		class="sapUiSmallMargin"
-		press=".onWorkPCackagePress">
-		<dependents>
-			<core:Fragment
-				fragmentName="smartTable.SmartTable.view.WpAction"
-				type="XML" />
-		</dependents>
-	</Button>
-	</OverflowToolbar>
+				<Button text="Requirements" class="sapUiSmallMargin" press=".onButtonPress">
+					<dependents>
+						<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
+					</dependents>
+				</Button>
+				<Button text="Work Package" class="sapUiSmallMargin" press=".onWorkPCackagePress">
+					<dependents>
+						<core:Fragment fragmentName="smartTable.SmartTable.view.WpAction" type="XML"/>
+					</dependents>
+				</Button>
+			</OverflowToolbar>
 			<!--<OverflowToolbar>-->
 			<!--	<ToolbarSpacer/>-->
 			<!--	<MenuButton text="Work Package">-->
