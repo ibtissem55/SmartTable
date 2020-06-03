@@ -2,13 +2,24 @@
 	xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:Table="sap.ui.table"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
-	xmlns:vm="sap.ui.comp.variants" xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:smartTable="sap.ui.comp.smarttable"
-	controllerName="smartTable.SmartTable.controller.Mtable" height="100%">
+	xmlns:vm="sap.ui.comp.variants" xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:v="sap.ui.comp.variants"
+	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.Mtable" height="100%">
 	<Page id="floatingFooterPage" title="Requirements Management" floatingFooter="true"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
 		<VBox fitContainer="false">
-			<smartVariantManagement:SmartVariantManagement id="pageVariantId" persistencyKey="PageVariantPKey"/>
-			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" smartVariant="pageVariantId" persistencyKey="SmartFilterPKey"
+			<!--<smartVariantManagement:SmartVariantManagement id="pageVariantId" persistencyKey="PageVariantPKey"/>-->
+			<OverflowToolbar>
+				<v:VariantManagement select="onSelectVariant" save="onSaveVariant" id="VMId" showSetAsDefault="true" enabled="true" manage="onManageVM"
+					showExecuteOnSelection="false" variantItems="{/variant}" showShare="false">
+					<v:variantItems>
+						<v:VariantItem key="{key}" text="{Name}" readOnly="fff" executeOnSelection="true"/>
+					</v:variantItems>
+				</v:VariantManagement>
+					<Button icon="{i18n>SRP_B_Settings}" tooltip="{i18n>SRP_BT_Settings}" press="onSettings" type="Transparent"/>
+		
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" smartVariant="pageVariantId" 
 				assignedFiltersChanged="onFiltersChanged" basicSearchFieldName="RequirementId" enableBasicSearch="true" considerSelectionVariants="true">
 				<smartFilterBar:controlConfiguration>
 					<smartFilterBar:ControlConfiguration key="CustomFilterField" index="1" label="Solution" groupId="_BASIC" width="300px"
@@ -55,7 +66,6 @@
 						<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
 					</dependents>
 				</Button>
-				
 			</OverflowToolbar>
 			<!--<OverflowToolbar>-->
 			<!--	<ToolbarSpacer/>-->

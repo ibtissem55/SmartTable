@@ -13,6 +13,20 @@ sap.ui.define([
 
 		onInit: function () {
 			that = this;
+			var oVariantData = {
+				variant: [{
+					key: "1",
+					Name: "Requirement"
+				}, {
+					key: "2",
+					Name: "Work PAckage"
+				}, {
+					key: "3",
+					Name: "Work Item"
+				}]
+			};
+			var oJsonVariant = new sap.ui.model.json.JSONModel(oVariantData);
+			this.getView().setModel(oJsonVariant);
 			var oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessageModel = oMessageManager.getMessageModel(),
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
@@ -111,7 +125,7 @@ sap.ui.define([
 			var oButton = oEvent.getSource();
 			that.byId("actionSheet").openBy(oButton);
 		},
-			onWorkPCackagePress: function (oEvent) {
+		onWorkPCackagePress: function (oEvent) {
 			var oButton = oEvent.getSource();
 			that.byId("actionWP").openBy(oButton);
 		}
