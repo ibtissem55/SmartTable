@@ -15,9 +15,6 @@ sap.ui.define([
 			that = this;
 			var oVariantData = {
 				variant: [{
-					key: "1",
-					Name: "Requirement"
-				}, {
 					key: "2",
 					Name: "Work PAckage"
 				}, {
@@ -59,10 +56,10 @@ sap.ui.define([
 		handleUploadPress: function () {
 			debugger
 			//upload excel file and get json 
-			var fragmentId = this.getView().createId("fr1");
+			//	var fragmentId = this.getView().createId("fr1");
 
 			var oSmartTab = this.getView().byId("smartTab");
-			var oFileUploader = sap.ui.core.Fragment.byId(fragmentId, "fileUploader");
+			//	var oFileUploader = sap.ui.core.Fragment.byId(fragmentId, "fileUploader");
 			//			var oFileUploader = this.byId("fileUploader");
 			oFileUploader.upload();
 			if (!oFileUploader.getValue()) {

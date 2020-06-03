@@ -3,30 +3,40 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
 	xmlns:vm="sap.ui.comp.variants" xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:v="sap.ui.comp.variants"
-	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.Mtable" height="100%">
-	<Page id="floatingFooterPage" title="Requirements Management" floatingFooter="true"
+	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.Mtable" height="100%" xmlns:tnt="sap.tnt">
+	<Page id="floatingFooterPage" floatingFooter="true" title="Requirements Management"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
+		<customHeader title="Requirements Management">
+			<tnt:ToolHeader>
+				<Bar>
+					<contentLeft>
+						<OverflowToolbar>
+							<v:VariantManagement select="onSelectVariant" save="onSaveVariant" id="VMId" showSetAsDefault="true" enabled="true" manage="onManageVM"
+								showExecuteOnSelection="false" variantItems="{/variant}" showShare="false" class="sapUiMediumMarginTop">
+								<v:variantItems>
+									<v:VariantItem key="{key}" text="{Name}" executeOnSelection="true"/>
+								</v:variantItems>
+							</v:VariantManagement>
+						</OverflowToolbar>
+					</contentLeft>
+					<contentMiddle>
+						<Text text="Requirement Management"></Text>
+					</contentMiddle>
+				</Bar>
+			</tnt:ToolHeader>
+		</customHeader>
 		<VBox fitContainer="false">
-			<!--<smartVariantManagement:SmartVariantManagement id="pageVariantId" persistencyKey="PageVariantPKey"/>-->
-			<OverflowToolbar>
-				<v:VariantManagement select="onSelectVariant" save="onSaveVariant" id="VMId" showSetAsDefault="true" enabled="true" manage="onManageVM"
-					showExecuteOnSelection="false" variantItems="{/variant}" showShare="false">
-					<v:variantItems>
-						<v:VariantItem key="{key}" text="{Name}" readOnly="fff" executeOnSelection="true"/>
-					</v:variantItems>
-				</v:VariantManagement>
-					<Button icon="{i18n>SRP_B_Settings}" tooltip="{i18n>SRP_BT_Settings}" press="onSettings" type="Transparent"/>
-		
-				<ToolbarSpacer/>
-			</OverflowToolbar>
-			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" smartVariant="pageVariantId" 
-				assignedFiltersChanged="onFiltersChanged" basicSearchFieldName="RequirementId" enableBasicSearch="true" considerSelectionVariants="true">
+			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" assignedFiltersChanged="onFiltersChanged"
+				basicSearchFieldName="RequirementId" enableBasicSearch="true" considerSelectionVariants="true">
 				<smartFilterBar:controlConfiguration>
 					<smartFilterBar:ControlConfiguration key="CustomFilterField" index="1" label="Solution" groupId="_BASIC" width="300px"
 						visibleInAdvancedArea="true">
 						<smartFilterBar:customControl>
 							<!--<Select id="selectSolution" forceSelection="false" selectedKey="{SolutionId}" items="{/requirementSet}">-->
 							<!--	<core:Item key="{SolutionName}" text="{SolutionName}"/>-->
+							<!--</Select>-->
+							<!--<Select id="selectBranch" forceSelection="false" selectedKey="{BranchId}" items="{/requirementSet}">-->
+							<!--	<core:Item key="{BranchName}" text="{BranchName}"/>-->
 							<!--</Select>-->
 						</smartFilterBar:customControl>
 					</smartFilterBar:ControlConfiguration>
@@ -48,7 +58,6 @@
 						<ToolbarSpacer/>
 						<OverflowToolbarButton text="Add" icon="sap-icon://add" press="handleUploadPress"/>
 						<OverflowToolbarButton icon="sap-icon://sort" text="Sort" press="onSort"/>
-						<OverflowToolbarButton icon="sap-icon://action-settings" text="Columns" press="onColumns"/>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
 			</smartTable:SmartTable>
@@ -67,25 +76,6 @@
 					</dependents>
 				</Button>
 			</OverflowToolbar>
-			<!--<OverflowToolbar>-->
-			<!--	<ToolbarSpacer/>-->
-			<!--	<MenuButton text="Work Package">-->
-			<!--		<menu>-->
-			<!--			<Menu>-->
-			<!--				<MenuItem text="Assign to Work Packege" icon="sap-icon://edit" press="onPress"/>-->
-			<!--				<MenuItem text="Create Work Package" icon="sap-icon://BusinessSuiteInAppSymbols/icon-target" press="onPress"/>-->
-			<!--			</Menu>-->
-			<!--		</menu>-->
-			<!--	</MenuButton>-->
-			<!--	<MenuButton text="Requirements">-->
-			<!--		<menu>-->
-			<!--			<Menu>-->
-			<!--				<MenuItem text="Create new Requirement" icon="sap-icon://add" press="onOpenFormDialog"/>-->
-			<!--				<MenuItem text="Import From Excel" icon="sap-icon://excel-attachment" press="onOpenDialog"/>-->
-			<!--			</Menu>-->
-			<!--		</menu>-->
-			<!--	</MenuButton>-->
-			<!--</OverflowToolbar>-->
 		</footer>
 	</Page>
 </mvc:View>
