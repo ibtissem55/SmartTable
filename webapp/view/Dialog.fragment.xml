@@ -1,13 +1,18 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
-	<Dialog id="helloDialog" title="Import Requirement from excel file" class="sapUiContentPadding"  resizable="true" draggable="true">
+<core:FragmentDefinition xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+	<Dialog id="helloDialog" title="Import Requirement from excel file" class="sapUiContentPadding" resizable="true" draggable="true">
 		<l:VerticalLayout>
-			<Label text="Solution (required)" labelFor="input-a"/>
-			<Select forceSelection="false">
-				<core:Item text="hello"/>
-			</Select>
-			<Label text="Excel file" labelFor="input-a"/>
-			<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" buttonOnly="false" fileType="xlsx,xls,csv"
-				icon="sap-icon://excel-attachment" iconOnly="true" uploadOnChange="true"/>
+			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanS="12" labelSpanM="4" labelSpanL="3"
+				columnsM="1" columnsL="1" emptySpanS="0" emptySpanM="2" emptySpanL="4">
+				<form:content>
+					<Label text="Solution" labelFor="input-a"/>
+					<Select id="dialogSolution" items="{/SolutionSet}" valueStateText="Required field">
+						<core:Item text="{Value}" key="{SolutionId}"/>
+					</Select>
+					<Label text="Excel file" labelFor="input-a"/>
+					<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" buttonOnly="false" fileType="xlsx,xls,csv"
+						icon="sap-icon://excel-attachment" iconOnly="true" uploadOnChange="true"/>
+				</form:content>
+			</form:SimpleForm>
 		</l:VerticalLayout>
 		<beginButton>
 			<Button text="Import" press="handleUploadPress"/>

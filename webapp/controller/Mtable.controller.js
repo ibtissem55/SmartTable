@@ -60,7 +60,7 @@ sap.ui.define([
 
 			var oSmartTab = this.getView().byId("smartTab");
 			//	var oFileUploader = sap.ui.core.Fragment.byId(fragmentId, "fileUploader");
-			//			var oFileUploader = this.byId("fileUploader");
+			var oFileUploader = sap.ui.getCore().byId("fileUploader");;
 			oFileUploader.upload();
 			if (!oFileUploader.getValue()) {
 				MessageToast.show("choose a file first");

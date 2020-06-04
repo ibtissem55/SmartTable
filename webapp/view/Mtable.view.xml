@@ -56,7 +56,6 @@
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>
-						<OverflowToolbarButton text="Add" icon="sap-icon://add" press="handleUploadPress"/>
 						<OverflowToolbarButton icon="sap-icon://sort" text="Sort" press="onSort"/>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
