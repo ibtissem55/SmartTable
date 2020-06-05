@@ -1,7 +1,8 @@
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:l="sap.ui.layout" xmlns:smartForm="sap.ui.comp.smartform"
-	xmlns:smartField="sap.ui.comp.smartfield" controllerName="smartTable.SmartTable.controller.Add" height="100%" xmlns:richtexteditor="sap.ui.richtexteditor">
-	<Page title="Create new Requirement" showNavButton="true" navButtonPress=".onNavBack" >
+	xmlns:smartField="sap.ui.comp.smartfield" controllerName="smartTable.SmartTable.controller.Add" height="100%"
+	xmlns:richtexteditor="sap.ui.richtexteditor">
+	<Page title="Create new Requirement" showNavButton="true" navButtonPress=".onNavBack">
 		<VBox fitContainer="true">
 			<smartForm:SmartForm id="smartForm" editTogglable="true" title="Create Requirement" flexEnabled="false">
 				<smartForm:Group>
@@ -55,14 +56,13 @@
 						<richtexteditor:RichTextEditor required="true"></richtexteditor:RichTextEditor>
 					</smartForm:GroupElement>
 				</smartForm:Group>
-					<UploadCollection multiple="true" >
-					</UploadCollection>
+				<UploadCollection multiple="true"></UploadCollection>
 			</smartForm:SmartForm>
 		</VBox>
-			<Footer>
+		<Footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Cancel" type="Reject" press="handleCancel" />
+				<Button text="Cancel" type="Reject" press="handleCancel"/>
 				<Button text="Submit" type="Default" press="handleSubmit"/>
 			</OverflowToolbar>
 		</Footer>

@@ -2,5 +2,4 @@
 	title="Choose Your Action" showCancelButton="true" placement="Top">
 	<Button text="Create new Requirement" icon="sap-icon://add" press="onOpenFormDialog"/>
 	<Button text="Import From Excel" icon="sap-icon://excel-attachment" press="onOpenDialog"/>
-
 </ActionSheet>
