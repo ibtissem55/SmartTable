@@ -5,9 +5,13 @@
 			<form:SimpleForm editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" labelSpanS="12" labelSpanM="4" labelSpanL="3"
 				columnsM="1" columnsL="1" emptySpanS="0" emptySpanM="2" emptySpanL="4">
 				<form:content>
-					<Label text="Solution" labelFor="input-a"/>
-					<Select id="dialogSolution" items="{/SolutionSet}" valueStateText="Required field">
-						<core:Item text="{Value}" key="{SolutionId}"/>
+				<Label text="Solution" labelFor="input-a" required="true"/>
+					<Select id="dialogSolution"  items="{/solutionsSet}" change="solutionBranch">
+						<core:Item id ="itemSolution" text="{SolutionName}" key="{Solution_ID}"/>
+					</Select>
+						<Label text="Branch" labelFor="input-a"/>
+					<Select id="dialogBranch" items="{}" enabled="false" valueStateText="Required field">
+						<core:Item id="itemBranch" text="{Branch}" key="{Branch_ID}"/>
 					</Select>
 					<Label text="Excel file" labelFor="input-a"/>
 					<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" buttonOnly="false" fileType="xlsx,xls,csv"

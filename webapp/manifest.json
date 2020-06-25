@@ -1,118 +1,129 @@
  {
-	"_version": "1.12.0",
+ 	"_version": "1.12.0",
 
-	"sap.app": {
-		"id": "smartTable.SmartTable",
-		"type": "application",
-		"i18n": "i18n/i18n.properties",
-		"applicationVersion": {
-			"version": "1.0.0"
-		},
-	
-		"title": "{{appTitle}}",
-		"description": "{{appDescription}}",
-		"sourceTemplate": {
-			"id": "ui5template.basicSAPUI5ApplicationProject",
-			"version": "1.40.12"
-		}
-	
+ 	"sap.app": {
+ 		"id": "smartTable.SmartTable",
+ 		"type": "application",
+ 		"i18n": "i18n/i18n.properties",
+ 		"applicationVersion": {
+ 			"version": "1.0.0"
+ 		},
+ 		"ach": "CA-UI5-FST",
+ 		"title": "{{appTitle}}",
+ 		"description": "{{appDescription}}",
+ 		"sourceTemplate": {
+ 			"id": "ui5template.basicSAPUI5ApplicationProject",
+ 			"version": "1.40.12"
+ 		},
+ 		"dataSources": {
+ 			"OFD": {
+ 				"uri": "/sap/opu/odata/sap/ZGW_REQU_I_SRV/",
+ 				"type": "OData",
+ 				"settings": {
+ 					"odataVersion": "2.0"
+ 				}
+ 			}
+ 		}
 
-	},
+ 	},
 
-	"sap.ui": {
-		"technology": "UI5",
-		"icons": {
-			"icon": "",
-			"favIcon": "",
-			"phone": "",
-			"phone@2": "",
-			"tablet": "",
-			"tablet@2": ""
-		},
-		"deviceTypes": {
-			"desktop": true,
-			"tablet": true,
-			"phone": true
-		}
-	},
+ 	"sap.ui": {
+ 		"technology": "UI5",
+ 		"icons": {
+ 			"icon": "",
+ 			"favIcon": "",
+ 			"phone": "",
+ 			"phone@2": "",
+ 			"tablet": "",
+ 			"tablet@2": ""
+ 		},
+ 		"deviceTypes": {
+ 			"desktop": true,
+ 			"tablet": true,
+ 			"phone": true
+ 		}
+ 	},
 
-	"sap.ui5": {
-		"flexEnabled": false,
-		"rootView": {
-			"viewName": "smartTable.SmartTable.view.View1",
-			"type": "XML",
-			"async": true,
-			"id": "View1"
-		},
-		"dependencies": {
-			"minUI5Version": "1.65.6",
-			"libs": {
-				"sap.ui.layout": {},
-				"sap.ui.core": {},
-				"sap.m": {}
-			}
-		},
+ 	"sap.ui5": {
+ 		"flexEnabled": false,
+ 		"rootView": {
+ 			"viewName": "smartTable.SmartTable.view.View1",
+ 			"type": "XML",
+ 			"async": true,
+ 			"id": "View1"
+ 		},
+ 		"dependencies": {
+ 			"minUI5Version": "1.65.6",
+ 			"libs": {
+ 				"sap.ui.layout": {},
+ 				"sap.ui.core": {},
+ 				"sap.m": {}
+ 			}
+ 		},
 
-		"contentDensities": {
-			"compact": true,
-			"cozy": true
-		},
-		"models": {
-			"i18n": {
-				"type": "sap.ui.model.resource.ResourceModel",
-				"settings": {
-					"bundleName": "smartTable.SmartTable.i18n.i18n"
-				}
-			}
-		},
-		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
-		},
-		"routing": {
-			"config": {
-				"routerClass": "sap.m.routing.Router",
-				"viewType": "XML",
-				"async": true,
-				"viewPath": "smartTable.SmartTable.view",
-				"controlAggregation": "pages",
-				"controlId": "app",
-				"clearControlAggregation": false,
-				"bypassed": {
-					"target": "notFound"
-				}
-			},
-			"routes": [{
-				"pattern": "",
-				"name": "Mtable",
-				"target": ["TargetView1"]
-			}, {
-				"pattern": "Add",
-				"name": "add",
-				"target": "Targetadd"
-			}],
-			"targets": {
-				"TargetView1": {
-					"viewType": "XML",
-					"transition": "slide",
-					"clearControlAggregation": false,
-					"viewId": "Mtable",
-					"viewName": "Mtable",
-					"viewLevel": 1
-				},
-				"Targetadd": {
-					"viewName": "Add",
-					"viewId": "Add",
-					"viewLevel": 2
+ 		"contentDensities": {
+ 			"compact": true,
+ 			"cozy": true
+ 		},
+ 		"models": {
+ 			"i18n": {
+ 				"type": "sap.ui.model.resource.ResourceModel",
+ 				"settings": {
+ 					"bundleName": "smartTable.SmartTable.i18n.i18n"
+ 				}
+ 			},
+ 			"": {
+ 				"dataSource": "OFD"
+ 				
+ 			}},
+ 			"resources": {
+ 				"css": [{
+ 					"uri": "css/style.css"
+ 				}]
+ 			},
+ 			"routing": {
+ 				"config": {
+ 					"routerClass": "sap.m.routing.Router",
+ 					"viewType": "XML",
+ 					"async": true,
+ 					"viewPath": "smartTable.SmartTable.view",
+ 					"controlAggregation": "pages",
+ 					"controlId": "app",
+ 					"clearControlAggregation": false,
+ 					"bypassed": {
+ 						"target": "notFound"
+ 					}
+ 				},
+ 				"routes": [{
+ 					"pattern": "",
+ 					"name": "Mtable",
+ 					"target": ["TargetView1"]
+ 				}, {
+ 					"pattern": "Add",
+ 					"name": "add",
+ 					"target": "Targetadd"
+ 				}],
+ 				"targets": {
+ 					"TargetView1": {
+ 						"viewType": "XML",
+ 						"transition": "slide",
+ 						"clearControlAggregation": false,
+ 						"viewId": "Mtable",
+ 						"viewName": "Mtable",
+ 						"viewLevel": 1
+ 					},
+ 					"Targetadd": {
+ 						"viewName": "Add",
+ 						"viewId": "Add",
+ 						"viewLevel": 2
 
-				},
-				"notFound": {
-					"viewId": "notFound",
-					"viewName": "NotFound",
-					"transition": "show"
-				}
-			}
-		}
-	}
-}
+ 					},
+ 					"notFound": {
+ 						"viewId": "notFound",
+ 						"viewName": "NotFound",
+ 						"transition": "show"
+ 					}
+ 				}
+ 			}
+ 		}
+ 	}
