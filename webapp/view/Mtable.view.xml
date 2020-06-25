@@ -28,21 +28,7 @@
 		<VBox fitContainer="false">
 			<smartFilterBar:SmartFilterBar id="smartFilterBar" persistencyKey="UniqueAndStablePersistencyKey" entitySet="requirementSet" assignedFiltersChanged="onFiltersChanged"
 				basicSearchFieldName="RequirementId" enableBasicSearch="true" considerSelectionVariants="true" >
-				<!--<smartFilterBar:controlConfiguration>-->
-				<!--	<smartFilterBar:ControlConfiguration key="CustomFilterField" index="1" label="Solution" groupId="_BASIC" width="300px"-->
-				<!--		visibleInAdvancedArea="true">-->
-				<!--		<smartFilterBar:customControl>-->
-							<!--<Select id="selectSolution" forceSelection="false" selectedKey="{SolutionId}" items="{/requirementSet}">-->
-							<!--	<core:Item key="{SolutionName}" text="{SolutionName}"/>-->
-							<!--</Select>-->
-							<!--<Select id="selectBranch" forceSelection="false" selectedKey="{BranchId}" items="{/requirementSet}">-->
-							<!--	<core:Item key="{BranchName}" text="{BranchName}"/>-->
-							<!--</Select>-->
-				<!--		</smartFilterBar:customControl>-->
-				<!--	</smartFilterBar:ControlConfiguration>-->
-				<!--</smartFilterBar:controlConfiguration>-->
-				<!-- layout data used to make the table growing but the filter bar fixed -->
-				<smartFilterBar:layoutData>
+			<smartFilterBar:layoutData>
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
@@ -50,15 +36,6 @@
 				useVariantManagement="true" useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport"
 				showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" customData:useSmartField="false" customData:useSmartToggle="true"
 				enableAutoBinding="true" editable="true" class="sapUiResponsiveContentPadding" tableBindingPath="oModelMNA>/" initiallyVisibleFields="Requirement_ID,Title,Description,Status,Priority,Owner,Created_By,Element,Work_Package_ID,Solution,Branch,Value_Points,Effort_Points,Local,Classification_Attributes">
-				<!--<smartTable:layoutData>-->
-				<!--	<FlexItemData growFactor="1" baseSize="0%"/>-->
-				<!--</smartTable:layoutData>-->
-				<!--<smartTable:customToolbar>-->
-				<!--	<OverflowToolbar design="Transparent">-->
-				<!--		<ToolbarSpacer/>-->
-				<!--		<OverflowToolbarButton icon="sap-icon://sort" text="Sort" press="onSort"/>-->
-				<!--	</OverflowToolbar>-->
-				<!--</smartTable:customToolbar>-->
 				
 			</smartTable:SmartTable>
 		</VBox>

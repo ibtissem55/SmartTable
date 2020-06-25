@@ -11,19 +11,7 @@ sap.ui.define([
 	return Controller.extend("smartTable.SmartTable.controller.Mtable", {
 
 		onInit: function () {
-
 			that = this;
-			// var oVariantData = {
-			// 	variant: [{
-			// 		key: "2",
-			// 		Name: "Work PAckage"
-			// 	}, {
-			// 		key: "3",
-			// 		Name: "Work Item"
-			// 	}]
-			// };
-			// var oJsonVariant = new sap.ui.model.json.JSONModel(oVariantData);
-			// this.getView().setModel(oJsonVariant);
 			var oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessageModel = oMessageManager.getMessageModel(),
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
@@ -34,13 +22,10 @@ sap.ui.define([
 					usernameEmpty: true,
 					order: 0
 				});
-
 			this.getView().setModel(oViewModel, "appView");
 			this.getView().setModel(oMessageModel, "message");
-
 			oMessageModelBinding.attachChange(this.onMessageBindingChange, this);
 			this._bTechnicalErrors = false;
-
 		},
 		/**
 		 * Event handler when the add button gets pressed
@@ -50,11 +35,8 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("add");
 		},
-		// handlePopoverPress: function (oEvent) {
-		// 	var oButton = oEvent.getSource();
-
 		handleUploadPress: function () {
-			var solution = sap.ui.getCore().byId("dialogBranch").getSelectedItem().getText();
+			var branch = sap.ui.getCore().byId("dialogBranch").getSelectedItem().getText();
 			var solution = sap.ui.getCore().byId("dialogSolution").getSelectedItem().getText();
 			//upload excel file and get json 
 			var oSmartTab = this.getView().byId("smartTab");
@@ -86,7 +68,7 @@ sap.ui.define([
 						//	json is our data that we have to set in the json model  
 						var oModelMNA = new sap.ui.model.json.JSONModel();
 						for (var k = 0; k < json.length; ++k) {
-							json[k]["Branch"] = "Design";
+							json[k]["Branch"] = branch;
 							json[k]["Solution"] = solution;
 							json[k]["Status"] = "Draft";
 
@@ -104,7 +86,6 @@ sap.ui.define([
 							aColumns[m].getTemplate().getDisplay().bindText(sPath);
 
 							aColumns[m].getTemplate().getEdit().bindValue(sPath);
-
 						}
 						oTable.bindRows("oModelMNA>/");
 						//	oSmartTab.setTable(oTable);
@@ -174,23 +155,6 @@ sap.ui.define([
 			});
 
 		},
-		// onSave: function () {
-		// 	var fnSuccess = function () {
-		// 		this._setBusy(false);
-		// 		MessageToast.show(this._getText("changesSentMessage"));
-		// 		this._setUIChanges(false);
-		// 	}.bind(this);
-
-		// 	var fnError = function (oError) {
-		// 		this._setBusy(false);
-		// 		this._setUIChanges(false);
-		// 		MessageBox.error(oError.message);
-		// 	}.bind(this);
-
-		// 	this._setBusy(true); // Lock UI until submitBatch is resolved.
-		// 	this.getView().getModel().submitBatch("peopleGroup").then(fnSuccess, fnError);
-		// 	this._bTechnicalErrors = false; // If there were technical errors, a new save resets them.
-		// },
 		_setBusy: function (bIsBusy) {
 			var oModel = this.getView().getModel("appView");
 			oModel.setProperty("/busy", bIsBusy);
@@ -205,47 +169,6 @@ sap.ui.define([
 				var oModel = this.getView().getModel("appView");
 				oModel.setProperty("/hasUIChanges", bHasUIChanges);
 			}
-			// onMessageBindingChange: function (oEvent) {
-			// 	var aContexts = oEvent.getSource().getContexts(),
-			// 		aMessages,
-			// 		bMessageOpen = false;
-
-		// 	if (bMessageOpen || !aContexts.length) {
-		// 		return;
-		// 	}
-
-		// 	// Extract and remove the technical messages
-		// 	aMessages = aContexts.map(function (oContext) {
-		// 		return oContext.getObject();
-		// 	});
-		// 	sap.ui.getCore().getMessageManager().removeMessages(aMessages);
-
-		// 	this._setUIChanges(true);
-		// 	this._bTechnicalErrors = true;
-		// 	MessageBox.error(aMessages[0].message, {
-		// 		id: "serviceErrorMessageBox",
-		// 		onClose: function () {
-		// 			bMessageOpen = false;
-		// 		}
-		// 	});
-
-		// 	bMessageOpen = true;
-		// },
-		// onResetChanges: function () {
-		// 	this.byId("peopleList").getBinding("items").resetChanges();
-		// 	this._bTechnicalErrors = false;
-		// 	this._setUIChanges();
-		// },
-		// onInputChange: function (oEvt) {
-		// 	if (oEvt.getParameter("escPressed")) {
-		// 		this._setUIChanges();
-		// 	} else {
-		// 		this._setUIChanges(true);
-		// 		if (oEvt.getSource().getParent().getBindingContext().getProperty("UserName")) {
-		// 			this.getView().getModel("appView").setProperty("/usernameEmpty", false);
-		// 		}
-		// 	}
-		// }
 
 	});
 });
