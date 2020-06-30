@@ -1,0 +1,102 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/sap/opu/odata/sap/ZGW_REQU_I_SRV/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="ZGW_REQU_I_SRV"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">
+		<edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SmartTable.annotations.annotation0.ZGW_REQU_I_SRV">
+			<Annotations Target="Metadata.requirement">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>Solution_ID</PropertyPath>
+						<PropertyPath>Branch_ID</PropertyPath>
+						<PropertyPath>Scope_ID</PropertyPath>
+						<PropertyPath>Element_ID</PropertyPath>
+						<PropertyPath>Priority_ID</PropertyPath>
+						<PropertyPath>Status_ID</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<!--<Annotations Target="Metadata.solutions">-->
+			<!--	<Annotation Term="UI.FieldGroup">-->
+			<!--		<Record Type="UI.FieldGroupType"/>-->
+			<!--	</Annotation>-->
+			<!--	<Annotation Term="UI.SelectionVariant" Qualifier="solutionQ">-->
+			<!--		<Record Type="UI.SelectionVariantType"/>-->
+			<!--	</Annotation>-->
+			<!--	<Annotation Term="UI.FilterFacets">-->
+			<!--		<Collection/>-->
+			<!--	</Annotation>-->
+			<!--</Annotations>-->
+			<!--<Annotations Target="Metadata.branches/Branch">-->
+			<!--	<Annotation Term="Aggregation.Aggregatable"/>-->
+			<!--	<Annotation Term="UI.RecommendationList">-->
+			<!--		<Record Type="UI.RecommendationListType">-->
+			<!--			<PropertyValue Property="CollectionPath" String="branchesSet"/>-->
+			<!--			<PropertyValue Property="RankProperty" String="branchesSet"/>-->
+			<!--		</Record>-->
+			<!--	</Annotation>-->
+			<!--</Annotations>-->
+			<!--<Annotations Target="Metadata.Partner/FullName">-->
+			<!--	<Annotation Term="Common.ValueList">-->
+			<!--		<Record Type="Common.ValueListType">-->
+			<!--			<PropertyValue Property="CollectionPath" String="partnerSet"/>-->
+			<!--		</Record>-->
+			<!--	</Annotation>-->
+			<!--</Annotations>-->
+			<!--<Annotations Target="Metadata.requirement/Solution_ID">-->
+			<!--	<Annotation Term="Common.ValueList">-->
+			<!--		<Record Type="Common.ValueListType">-->
+			<!--			<PropertyValue Property="CollectionPath" String="Solution_ID"/>-->
+			<!--			<PropertyValue Property="Parameters">-->
+			<!--				<Collection>-->
+			<!--					<Record Type="Common.ValueListParameterOut">-->
+			<!--						<PropertyValue Property="LocalDataProperty" PropertyPath="Solution_ID"/>-->
+			<!--						<PropertyValue Property="ValueListProperty" String="Solution_ID"/>-->
+			<!--					</Record>-->
+			<!--				</Collection>-->
+			<!--			</PropertyValue>-->
+			<!--		</Record>-->
+			<!--	</Annotation>-->
+			<!--</Annotations>-->
+			<!--<Annotations Target="Metadata.requirement/Solution">-->
+			<!--	<Annotation Term="Common.ValueList">-->
+			<!--		<Record Type="Common.ValueListType">-->
+			<!--			<PropertyValue Property="CollectionPath" String="solutionsSet"/>-->
+			<!--			<PropertyValue Property="Parameters">-->
+			<!--				<Collection>-->
+			<!--					<Record Type="Common.ValueListParameterOut">-->
+			<!--						<PropertyValue Property="LocalDataProperty" PropertyPath="Solution"/>-->
+			<!--						<PropertyValue Property="ValueListProperty" String="Solution"/>-->
+			<!--					</Record>-->
+			<!--				</Collection>-->
+			<!--			</PropertyValue>-->
+			<!--		</Record>-->
+			<!--	</Annotation>-->
+			<!--</Annotations>-->
+			<!--<Annotations Target="Metadata.requirement/Branch">-->
+			<!--	<Annotation Term="Common.ValueList">-->
+			<!--		<Record Type="Common.ValueListType">-->
+			<!--			<PropertyValue Property="CollectionPath" String="solutionsSet/SolutionBranch"/>-->
+			<!--			<PropertyValue Property="Parameters">-->
+			<!--				<Collection>-->
+			<!--					<Record Type="Common.ValueListParameterInOut">-->
+			<!--						<PropertyValue Property="LocalDataProperty" PropertyPath="Branch"/>-->
+			<!--						<PropertyValue Property="ValueListProperty" String="Branch"/>-->
+			<!--					</Record>-->
+			<!--				</Collection>-->
+			<!--			</PropertyValue>-->
+			<!--		</Record>-->
+			<!--	</Annotation>-->
+			<!--</Annotations>-->
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,159 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZGW_REQU_I_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="requirement" sap:content-version="1">
+				<Key><PropertyRef Name="REQUIREMENT_GUID"/></Key><Property Name="Classification_Attributes" Type="ZGW_REQU_I_SRV.ClassifAttributes" Nullable="false"/><Property Name="Category" Type="ZGW_REQU_I_SRV.Category" Nullable="false"/><Property Name="Requirement_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Requirement ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Business_Process_Expert_No" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Business Process Expert No"/><Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Title"/><Property Name="Priority" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Priority"/><Property Name="Priority_ID" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Priority ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Branch" Type="Edm.String" MaxLength="30" sap:unicode="false" sap:label="Branch" sap:creatable="false" sap:updatable="false"/><Property Name="Branch_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Branch ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Scope_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Scope ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Solution_ID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Solution ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Element_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Element ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Work_Package_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Work Package ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Value_Points" Type="Edm.Int32" sap:unicode="false" sap:label="Value Points"/><Property Name="Effort_Points" Type="Edm.Int32" sap:unicode="false" sap:label="Effort Points"/><Property Name="Created_At" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Created At" sap:creatable="false"
+					sap:updatable="false"/><Property Name="REQUIREMENT_GUID" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Requirement GUID"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Owner_BP_No" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Owner BP Number"
+					sap:sortable="false"/><Property Name="Business_Process_Expert_Name" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="BP Expert"
+					sap:sortable="false"/><Property Name="Description" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Description" sap:updatable="false"
+					sap:sortable="false"/><Property Name="Scope_Name" Type="Edm.String" MaxLength="120" sap:unicode="false" sap:label="Scope Name" sap:updatable="false"
+					sap:sortable="false"/><Property Name="Owner" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Owner" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Remarks" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Remarks" sap:sortable="false"/><Property Name="PATH" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="PATH" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Suggested_Solution" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Suggested Solution"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Language" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Language" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Icon" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Icon" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false"/><Property Name="Element_Type_Name" Type="Edm.String" MaxLength="26" sap:unicode="false" sap:label="Element Type Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Status_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Status Id" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Status" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Element" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Element" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Solution" Type="Edm.String" sap:unicode="false" sap:label="Solution" sap:updatable="false" sap:sortable="false"/><Property Name="WP_Description" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="WP Description"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="OwnerBpName" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Owner Bp Name"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="WpAssignment" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="work package assignment"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="WpCrmLink" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Crm Link" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="TTUNC_PATH" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="TRUNC PATH" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="ClassifAttribute" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="CLASSIF ATTRIBUTE" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Line_Item" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="line item" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="WRICEF" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="WRICEF" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false"/><Property Name="Created_By" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Created By"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Changed_By" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Changed By"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="External_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="External ID"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="External_URL" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="External URL" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="solutions" Relationship="ZGW_REQU_I_SRV.solution_requirement" FromRole="ToRole_solution_requirement"
+					ToRole="FromRole_solution_requirement"/></EntityType>
+			<EntityType Name="owner" sap:content-version="1">
+				<Key><PropertyRef Name="OwnerId"/></Key><Property Name="OwnerId" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Owner ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Owner" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Owner" sap:creatable="false"
+					sap:updatable="false"/><NavigationProperty Name="requirementSet" Relationship="ZGW_REQU_I_SRV.requ_owner" FromRole="FromRole_requ_owner" ToRole="ToRole_requ_owner"/></EntityType>
+			<EntityType Name="elements" sap:content-version="1">
+				<Key><PropertyRef Name="Element_ID"/><PropertyRef Name="Branch_ID"/></Key><Property Name="Element_Type_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Element Type ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Element_Type_Description" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false"
+					sap:label="Element Type Description" sap:creatable="false" sap:updatable="false"/><Property Name="ElementName" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Element"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Description_Language" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Description Language"
+					sap:creatable="false" sap:updatable="false"/><Property Name="PATH" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="PATH" sap:creatable="false" sap:updatable="false"/><Property Name="Element_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Element ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Branch_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Banch ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Scope_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Scope ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="MAXLINES" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="MAXLINES" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Selectable" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Selectable"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Parent_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Parent ID" sap:creatable="false"
+					sap:updatable="false"/></EntityType>
+			<EntityType Name="scope" sap:content-version="1">
+				<Key><PropertyRef Name="ScopeId"/><PropertyRef Name="Solution_ID"/></Key><Property Name="ScopeId" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Scope ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Scope" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Scope" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Solution_ID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Solution ID" sap:creatable="false"
+					sap:updatable="false"/></EntityType>
+			<EntityType Name="category" sap:content-version="1">
+				<Key><PropertyRef Name="Category_ID"/></Key><Property Name="CatGuid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Category_GUID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Category_ID" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Category ID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Description"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Category_Level" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Category Level" sap:creatable="false"
+					sap:updatable="false"/><Property Name="AspId" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Asp ID" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Parent_Guid" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Parent GUID"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Editability" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="editability"
+					sap:creatable="false" sap:updatable="false"/></EntityType>
+			<EntityType Name="solutions" sap:content-version="1">
+				<Key><PropertyRef Name="Solution_ID"/></Key><Property Name="Solution_ID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Solution ID" sap:creatable="false"
+					sap:updatable="false" sap:filterable="false"/><Property Name="SolutionName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Solution"
+					sap:creatable="false" sap:updatable="false"/><Property Name="Solution_Description" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false"
+					sap:label="Solution Description" sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="LastExtDate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="LAST_EXT_DATE" sap:creatable="false"
+					sap:updatable="false" sap:filterable="false"/><NavigationProperty Name="SolutionScope" Relationship="ZGW_REQU_I_SRV.solution_scope" FromRole="FromRole_solution_scope"
+					ToRole="ToRole_solution_scope"/><NavigationProperty Name="SolutionBranch" Relationship="ZGW_REQU_I_SRV.solution_branch" FromRole="FromRole_solution_branch"
+					ToRole="ToRole_solution_branch"/><NavigationProperty Name="requirementSet" Relationship="ZGW_REQU_I_SRV.solution_requirement" FromRole="FromRole_solution_requirement"
+					ToRole="ToRole_solution_requirement"/></EntityType>
+			<EntityType Name="branches" sap:content-version="1">
+				<Key><PropertyRef Name="Branch_ID"/><PropertyRef Name="Solution_ID"/></Key><Property Name="Branch_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Branch ID" sap:creatable="false"
+					sap:updatable="false" sap:filterable="false"/><Property Name="Branch" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Branch" sap:creatable="false"
+					sap:updatable="false"/><Property Name="Branch_Type" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Branch Type"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="Solution_ID" Type="Edm.String" Nullable="false" MaxLength="22" sap:unicode="false" sap:label="Solution ID"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="Process_Type" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Process Type"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="Return_All_Branches" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="All Branches"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="Partner" sap:content-version="1">
+				<Key><PropertyRef Name="PartnerGuid"/></Key><Property Name="PartnerType" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="PARTNER_TYPE" sap:creatable="false"
+					sap:updatable="false"/><Property Name="FirstName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="First name"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="LastName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Last name" sap:creatable="false"
+					sap:updatable="false" sap:filterable="false"/><Property Name="PartnerGuid" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="PARTNER_GUID" sap:creatable="false"
+					sap:updatable="false" sap:filterable="false"/><Property Name="Role" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="ROLE" sap:creatable="false" sap:updatable="false"
+					sap:filterable="false"/><Property Name="WsGuid" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="WS_GUID" sap:creatable="false"
+					sap:updatable="false" sap:filterable="false"/><Property Name="RefPartner" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Partner Number"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="RefPartnerFct" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Partner Function"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="Partner_Number" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Partner Number"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="PartnerFct" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Partner Function"
+					sap:creatable="false" sap:updatable="false" sap:filterable="false"/><Property Name="FullName" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Full Name" sap:creatable="false"
+					sap:updatable="false"/><Property Name="UserName" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="USER_NAME" sap:creatable="false"
+					sap:updatable="false"/></EntityType>
+			<ComplexType Name="Category"><Property Name="CatGuid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="id" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="CatId" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="id" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="120" sap:label="text 120" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="CatLevel" Type="Edm.Int32" Nullable="false" sap:label="Number" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="AspId" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="id" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="ParentGuid" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="id" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="Editability" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="editability" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/></ComplexType>
+			<ComplexType Name="ClassifAttributes"><Property Name="AttrName" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Component name" sap:creatable="false"
+				sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Key" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Classification" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="80" sap:label="Text" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/><Property Name="Sequence" Type="Edm.Byte" Nullable="false" sap:label="Sequence" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/></ComplexType>
+			<Association Name="requ_owner" sap:content-version="1"><End Type="ZGW_REQU_I_SRV.owner" Multiplicity="1" Role="FromRole_requ_owner"/><End Type="ZGW_REQU_I_SRV.requirement" Multiplicity="*" Role="ToRole_requ_owner"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_requ_owner"><PropertyRef Name="OwnerId"/></Principal>
+					<Dependent Role="ToRole_requ_owner"><PropertyRef Name="Owner"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="solution_scope" sap:content-version="1"><End Type="ZGW_REQU_I_SRV.solutions" Multiplicity="1" Role="FromRole_solution_scope"/><End Type="ZGW_REQU_I_SRV.scope" Multiplicity="*" Role="ToRole_solution_scope"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_solution_scope"><PropertyRef Name="Solution_ID"/></Principal>
+					<Dependent Role="ToRole_solution_scope"><PropertyRef Name="Solution_ID"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="solution_branch" sap:content-version="1"><End Type="ZGW_REQU_I_SRV.solutions" Multiplicity="*" Role="FromRole_solution_branch"/><End Type="ZGW_REQU_I_SRV.branches" Multiplicity="*" Role="ToRole_solution_branch"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_solution_branch"><PropertyRef Name="Solution_ID"/></Principal>
+					<Dependent Role="ToRole_solution_branch"><PropertyRef Name="Solution_ID"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="solution_requirement" sap:content-version="1"><End Type="ZGW_REQU_I_SRV.solutions" Multiplicity="0..1" Role="FromRole_solution_requirement"/><End Type="ZGW_REQU_I_SRV.requirement" Multiplicity="*" Role="ToRole_solution_requirement"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_solution_requirement"><PropertyRef Name="Solution_ID"/></Principal>
+					<Dependent Role="ToRole_solution_requirement"><PropertyRef Name="Solution_ID"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZGW_REQU_I_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="requirementSet" EntityType="ZGW_REQU_I_SRV.requirement" sap:deletable="false" sap:searchable="true" sap:pageable="false"
+				sap:content-version="1"/><EntitySet Name="ownerSet" EntityType="ZGW_REQU_I_SRV.owner" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/><EntitySet Name="elementsSet" EntityType="ZGW_REQU_I_SRV.elements" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/><EntitySet Name="scopeSet" EntityType="ZGW_REQU_I_SRV.scope" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/><EntitySet Name="categorySet" EntityType="ZGW_REQU_I_SRV.category" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/><EntitySet Name="solutionsSet" EntityType="ZGW_REQU_I_SRV.solutions" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/><EntitySet Name="branchesSet" EntityType="ZGW_REQU_I_SRV.branches" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/><EntitySet Name="PartnerSet" EntityType="ZGW_REQU_I_SRV.Partner" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:searchable="true" sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="solution_branchSet" Association="ZGW_REQU_I_SRV.solution_branch" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="solutionsSet" Role="FromRole_solution_branch"/><End EntitySet="branchesSet" Role="ToRole_solution_branch"/></AssociationSet>
+				<AssociationSet Name="solution_requirementSet" Association="ZGW_REQU_I_SRV.solution_requirement" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="solutionsSet" Role="FromRole_solution_requirement"/><End EntitySet="requirementSet" Role="ToRole_solution_requirement"/></AssociationSet>
+				<AssociationSet Name="solution_scopeSet" Association="ZGW_REQU_I_SRV.solution_scope" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="solutionsSet" Role="FromRole_solution_scope"/><End EntitySet="scopeSet" Role="ToRole_solution_scope"/></AssociationSet>
+				<AssociationSet Name="requ_ownerSet" Association="ZGW_REQU_I_SRV.requ_owner" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="ownerSet" Role="FromRole_requ_owner"/><End EntitySet="requirementSet" Role="ToRole_requ_owner"/></AssociationSet>
+			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZGW_REQU_I_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZGW_REQU_I_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

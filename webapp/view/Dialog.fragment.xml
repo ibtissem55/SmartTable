@@ -7,7 +7,7 @@
 				<form:content>
 				<Label text="Solution" labelFor="input-a" required="true"/>
 					<Select id="dialogSolution"  items="{/solutionsSet}" change="solutionBranch">
-						<core:Item id ="itemSolution" text="{SolutionName}" key="{Solution_ID}"/>
+						<core:Item id ="itemSolution" text="{SolutionName}" key="{Solution_ID}" />
 					</Select>
 						<Label text="Branch" labelFor="input-a"/>
 					<Select id="dialogBranch" items="{}" enabled="false" valueStateText="Required field">

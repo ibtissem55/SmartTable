@@ -12,6 +12,7 @@ sap.ui.define([
 
 		onInit: function () {
 			that = this;
+			
 			var oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessageModel = oMessageManager.getMessageModel(),
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
@@ -19,8 +20,9 @@ sap.ui.define([
 				oViewModel = new sap.ui.model.json.JSONModel({
 					busy: false,
 					hasUIChanges: false,
-					usernameEmpty: true,
-					order: 0
+					solutionEmpty: true,
+					order: 0,
+					groupId: "myGroupId",
 				});
 			this.getView().setModel(oViewModel, "appView");
 			this.getView().setModel(oMessageModel, "message");
@@ -35,9 +37,10 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("add");
 		},
-		handleUploadPress: function () {
+		handleUploadPress: function (oEvt) {
 			var branch = sap.ui.getCore().byId("dialogBranch").getSelectedItem().getText();
 			var solution = sap.ui.getCore().byId("dialogSolution").getSelectedItem().getText();
+
 			//upload excel file and get json 
 			var oSmartTab = this.getView().byId("smartTab");
 			var oFileUploader = sap.ui.getCore().byId("fileUploader");
@@ -71,7 +74,6 @@ sap.ui.define([
 							json[k]["Branch"] = branch;
 							json[k]["Solution"] = solution;
 							json[k]["Status"] = "Draft";
-
 						}
 						oModelMNA.setData(json);
 
@@ -89,6 +91,7 @@ sap.ui.define([
 						}
 						oTable.bindRows("oModelMNA>/");
 						//	oSmartTab.setTable(oTable);
+						that._setUIChanges(true);
 					};
 					reader.readAsArrayBuffer(file);
 					this._getDialog().close();
@@ -127,7 +130,7 @@ sap.ui.define([
 			idBranch.setSelectedKey(null);
 			this.getOwnerComponent().getModel().read(vPath, {
 				success: function (oRetrievedResult) {
-					debugger;
+
 					var items = oRetrievedResult.results;
 					if (items.length != 0) {
 						idBranch.setEnabled(true);
@@ -160,15 +163,54 @@ sap.ui.define([
 			oModel.setProperty("/busy", bIsBusy);
 		},
 		_setUIChanges: function (bHasUIChanges) {
-				if (this._bTechnicalErrors) {
-					// If there is currently a technical error, then force 'true'.
-					bHasUIChanges = true;
-				} else if (bHasUIChanges === undefined) {
-					bHasUIChanges = this.getView().getModel().hasPendingChanges();
-				}
-				var oModel = this.getView().getModel("appView");
-				oModel.setProperty("/hasUIChanges", bHasUIChanges);
+			if (this._bTechnicalErrors) {
+				// If there is currently a technical error, then force 'true'.
+				bHasUIChanges = true;
+			} else if (bHasUIChanges === undefined) {
+				bHasUIChanges = this.getView().getModel().hasPendingChanges();
 			}
+			var oModel = this.getView().getModel("appView");
+			oModel.setProperty("/hasUIChanges", bHasUIChanges);
+		},
+		_getText : function (sTextId, aArgs) {
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId, aArgs);
+
+		},
+		onSave: function () {
+			var oModel = that.getView().getModel();
+				oModel.setDeferredGroups("myGroupId");
+				oModel.setChangeGroups({
+				"EntityTypeName": {
+					groupId: "myGroupId"
+				}
+			});
+			oModel.setUseBatch(true);
+			that._setBusy(true); // Lock UI until submitBatch is resolved.
+	
+			oModel.submitChanges({
+            success: function(data, response) {
+                that._setBusy(false);
+			MessageToast.show(this._getText("changesSentMessage"));
+				that._setUIChanges(false);
+            },
+            error: function(e) {
+             	that._setBusy(false);
+				that._setUIChanges(false);
+				MessageBox.error(e.message);
+            }
+        });
+			that._bTechnicalErrors = false; // If there were technical errors, a new save resets them.
+		},
+		onInputChange: function (oEvt) {
+			if (oEvt.getParameter("escPressed")) {
+				this._setUIChanges();
+			} else {
+				this._setUIChanges(true);
+				if (oEvt.getSource().getParent().getBindingContext().getProperty("Solution")) {
+					that.getView().getModel("appView").setProperty("/solutionEmpty", false);
+				}
+			}
+		},
 
 	});
 });
