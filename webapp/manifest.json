@@ -7,43 +7,16 @@
 		"applicationVersion": {
 			"version": "1.0.0"
 		},
-		"ach": "CA-UI5-FST",
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"ach": "ach",
 		"sourceTemplate": {
-			"id": "servicecatalog.connectivityComponentForManifest",
-			"version": "0.0.0"
-		},
-		"dataSources": {
-			"OFD": {
-				"uri": "/sap/opu/odata/sap/ZGW_REQU_I_SRV/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"annotations": [
-						"annotation0"
-					],
-				
-					"localUri": "localService/metadata.xml"
-				
-				}
-			},
-			"annotation0": {
-				"type": "ODataAnnotation",
-				"uri": "annotations/annotation0.xml",
-				"settings": {
-					"localUri": "annotations/annotation0.xml"
-				}
-			},
-			"ZGW_REQU_I_SRV": {
-				"uri": "/sap/opu/odata/sap/ZGW_REQU_I_SRV/",
-				"type": "OData",
-				"settings": {
-					"localUri": "localService/metadata.xml"
-				}
-			}
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
 		}
 	},
+
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -60,6 +33,7 @@
 			"phone": true
 		}
 	},
+
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
@@ -86,28 +60,12 @@
 				"settings": {
 					"bundleName": "smartTable.SmartTable.i18n.i18n"
 				}
-			},
-			"": {
-				"type": "sap.ui.model.odata.v2.ODataModel",
-				"settings": {
-					"defaultOperationMode": "Server",
-					"defaultBindingMode": "OneWay",
-					"defaultCountMode": "Request"
-				},
-				"dataSource": "ZGW_REQU_I_SRV",
-				"preload": true
-			},
-			"@i18n": {
-				"type": "sap.ui.model.resource.ResourceModel",
-				"uri": "i18n/i18n.properties"
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -117,43 +75,20 @@
 				"viewPath": "smartTable.SmartTable.view",
 				"controlAggregation": "pages",
 				"controlId": "app",
-				"clearControlAggregation": false,
-				"bypassed": {
-					"target": "notFound"
-				}
+				"clearControlAggregation": false
 			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "Mtable",
-					"target": [
-						"TargetView1"
-					]
-				},
-				{
-					"pattern": "Add",
-					"name": "add",
-					"target": "Targetadd"
-				}
-			],
+			"routes": [{
+				"name": "RouteView1",
+				"pattern": "RouteView1",
+				"target": ["TargetView1"]
+			}],
 			"targets": {
 				"TargetView1": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewId": "Mtable",
-					"viewName": "Mtable",
-					"viewLevel": 1
-				},
-				"Targetadd": {
-					"viewName": "Add",
-					"viewId": "Add",
-					"viewLevel": 2
-				},
-				"notFound": {
-					"viewId": "notFound",
-					"viewName": "NotFound",
-					"transition": "show"
+					"viewId": "View1",
+					"viewName": "View1"
 				}
 			}
 		}

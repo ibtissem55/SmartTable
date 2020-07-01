@@ -36,7 +36,7 @@
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Business_Process_Expert_Name}">
 							<smartField:configuration>
-								<smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionAndId"/>
+								<smartField:Configuration controlType="dropDownList" />
 							</smartField:configuration>
 						</smartField:SmartField>
 					</smartForm:GroupElement>
@@ -55,7 +55,7 @@
 						<smartForm:GroupElement>
 						<smartField:SmartField value="{Description}">
 							<smartField:configuration>
-								<smartField:Configuration controlType="auto" displayBehaviour="descriptionAndId"/>
+								<smartField:Configuration controlType="RichTextEditor" displayBehaviour="descriptionAndId"/>
 							</smartField:configuration>
 						</smartField:SmartField>
 					</smartForm:GroupElement>
@@ -63,13 +63,12 @@
 				<!--<UploadCollection multiple="true"></UploadCollection>-->
 			</smartForm:SmartForm>
 		</VBox>
-		<footer>
-			<OverflowToolbar>
-				<ToolbarSpacer/>
-					<Button text="Submit" type="Default" press="handleSubmit"/>
-				<Button text="Cancel" type="Reject" press="handleCancel"/>
-			
-			</OverflowToolbar>
-		</footer>
+		<!--<Footer>-->
+		<!--	<OverflowToolbar>-->
+		<!--		<ToolbarSpacer/>-->
+		<!--		<Button text="Cancel" type="Reject" press="handleCancel"/>-->
+		<!--		<Button text="Submit" type="Default" press="handleSubmit"/>-->
+		<!--	</OverflowToolbar>-->
+		<!--</Footer>-->
 	</Page>
 </mvc:View>

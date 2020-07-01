@@ -1,0 +1,109 @@
+{
+    "resources": [
+        {
+            "name": "../../sap-ui-version.json"
+        },
+        {
+            "name": "controller/Mtable.controller.js"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/View1.controller.js"
+        },
+        {
+            "name": "controller/NotFound.controller.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "controller/Firstview.controller.js"
+        },
+        {
+            "name": "controller/Add.controller.js"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "manifest-bundle.zip"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/View1-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/NotFound-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/Mtable-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/Firstview-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/Add-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "neo-app.json"
+        },
+        {
+            "name": "di.code-validation.core_issues.json"
+        },
+        {
+            "name": "view/WpAction.fragment.xml"
+        },
+        {
+            "name": "view/View1.view.xml"
+        },
+        {
+            "name": "view/NotFound.view.xml"
+        },
+        {
+            "name": "view/Mtable.view.xml"
+        },
+        {
+            "name": "view/Firstview.view.xml"
+        },
+        {
+            "name": "view/Dialog.fragment.xml"
+        },
+        {
+            "name": "view/Add.view.xml"
+        },
+        {
+            "name": "view/Action.fragment.xml"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "annotations/annotation0.xml"
+        },
+        {
+            "name": "index.html"
+        }
+    ]
+}

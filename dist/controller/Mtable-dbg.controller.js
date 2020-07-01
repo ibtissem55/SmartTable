@@ -1,10 +1,10 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JSONModel", "sap/ui/unified/FileUploader",
+	"sap/ui/core/mvc/Controller", "sap/m/Text", "sap/m/MessageToast", "sap/ui/model/json/JSONModel", "sap/ui/unified/FileUploader",
 	"sap/ui/model/Filter", "sap/m/library", 'sap/ui/Device', "sap/m/StandardListItem", 'sap/m/SearchField', 'sap/ui/export/Spreadsheet',
-	"sap/m/List", "sap/m/Dialog", "sap/m/MessageBox", "sap/m/MessageToast",
+	"sap/m/List", "sap/m/Dialog", "sap/m/MessageBox",
 	"sap/ui/model/FilterOperator", "sap/ui/table/Table", "sap/ui/commons/Label", 'sap/ui/core/Fragment', "sap/m/Button"
-], function (Controller, JSONModel, Device, SearchField, Spreadsheet, Table, Label, MessageBox, Fragment, Dialog, Filter,
-	FilterOperator, MessageToast,
+], function (Controller, MessageToast, JSONModel, Device, SearchField, Spreadsheet, Table, Label, MessageBox, Fragment, Dialog, Filter,
+	FilterOperator,
 	FileUploader, Button, mobileLibrary, List, StandardListItem, Text) {
 	"use strict";
 	var that;
@@ -12,7 +12,6 @@ sap.ui.define([
 
 		onInit: function () {
 			that = this;
-
 			var oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessageModel = oMessageManager.getMessageModel(),
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
@@ -20,9 +19,8 @@ sap.ui.define([
 				oViewModel = new sap.ui.model.json.JSONModel({
 					busy: false,
 					hasUIChanges: false,
-					solutionEmpty: true,
-					order: 0,
-					groupId: "myGroupId"
+		solutionEmpty: true,
+					order: 0
 				});
 			this.getView().setModel(oViewModel, "appView");
 			this.getView().setModel(oMessageModel, "message");
@@ -40,7 +38,9 @@ sap.ui.define([
 		handleUploadPress: function (oEvt) {
 			var branch = sap.ui.getCore().byId("dialogBranch").getSelectedItem().getText();
 			var solution = sap.ui.getCore().byId("dialogSolution").getSelectedItem().getText();
-
+			if (oEvt.getSource().getParent().getBindingContext().getProperty("Solution")) {
+					this.getView().getModel("appView").setProperty("/solutionEmpty", false);
+				}
 			//upload excel file and get json 
 			var oSmartTab = this.getView().byId("smartTab");
 			var oFileUploader = sap.ui.getCore().byId("fileUploader");
@@ -89,6 +89,7 @@ sap.ui.define([
 
 							aColumns[m].getTemplate().getEdit().bindValue(sPath);
 						}
+						debugger;
 						oTable.bindRows("oModelMNA>/");
 						//	oSmartTab.setTable(oTable);
 						that._setUIChanges(true);
@@ -122,9 +123,6 @@ sap.ui.define([
 		solutionBranch: function (oEvent) {
 
 			var solutionValue = oEvent.getSource().getProperty("selectedKey");
-			if (solutionValue != "") {
-				this.getView().getModel("appView").setProperty("/solutionEmpty", false);
-			}
 			var idBranch = sap.ui.getCore().byId("dialogBranch");
 			var vPath = "/solutionsSet('" + solutionValue.toString() + "')/SolutionBranch";
 			idBranch.setSelectedKey(null);
@@ -133,7 +131,7 @@ sap.ui.define([
 			idBranch.setSelectedKey(null);
 			this.getOwnerComponent().getModel().read(vPath, {
 				success: function (oRetrievedResult) {
-
+		
 					var items = oRetrievedResult.results;
 					if (items.length != 0) {
 						idBranch.setEnabled(true);
@@ -166,47 +164,32 @@ sap.ui.define([
 			oModel.setProperty("/busy", bIsBusy);
 		},
 		_setUIChanges: function (bHasUIChanges) {
-			if (this._bTechnicalErrors) {
-				// If there is currently a technical error, then force 'true'.
-				bHasUIChanges = true;
-			} else if (bHasUIChanges === undefined) {
-				bHasUIChanges = this.getView().getModel().hasPendingChanges();
-			}
-			var oModel = this.getView().getModel("appView");
-			oModel.setProperty("/hasUIChanges", bHasUIChanges);
-		},
-		_getText: function (sTextId, aArgs) {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId, aArgs);
-
-		},
-		onSave: function () {
-			var oModel = that.byId("smartTab").getModel();
-			oModel.setDeferredGroups("myGroupId");
-			oModel.setChangeGroups({
-				"EntityTypeName": {
-					groupId: "myGroupId"
+				if (this._bTechnicalErrors) {
+					// If there is currently a technical error, then force 'true'.
+					bHasUIChanges = true;
+				} else if (bHasUIChanges === undefined) {
+					bHasUIChanges = this.getView().getModel().hasPendingChanges();
 				}
-			});
-			oModel.setUseBatch(true);
+				var oModel = this.getView().getModel("appView");
+				oModel.setProperty("/hasUIChanges", bHasUIChanges);
+			},
+			onSave : function () {
+			var fnSuccess = function () {
+				this._setBusy(false);
+				MessageToast.show(this._getText("changesSentMessage"));
+				this._setUIChanges(false);
+			}.bind(this);
+
+			var fnError = function (oError) {
+				this._setBusy(false);
+				this._setUIChanges(false);
+				MessageBox.error(oError.message);
+			}.bind(this);
+
 			that._setBusy(true); // Lock UI until submitBatch is resolved.
-			var fnSuccess = function (data, response) {
-				that._setBusy(false);
-				var sMessage = that._getText("changesSentMessage");
-				MessageToast.show(sMessage);
-				that._setUIChanges(false);
-			};
-			var fnError = function (e) {
-				that._setBusy(false);
-				that._setUIChanges(false);
-				MessageBox.error(e.message);
-			};
-			oModel.submitChanges({
-				success: fnSuccess,
-				error: fnError
-			});
-			that._bTechnicalErrors = false;
-		},
-		onInputChange: function (oEvt) {
+			that.getView().getModel().submitChanges(fnSuccess, fnError);
+			that._bTechnicalErrors = false; // If there were technical errors, a new save resets them.
+		},onInputChange : function (oEvt) {
 			if (oEvt.getParameter("escPressed")) {
 				this._setUIChanges();
 			} else {
@@ -215,37 +198,6 @@ sap.ui.define([
 					that.getView().getModel("appView").setProperty("/solutionEmpty", false);
 				}
 			}
-		},
-		onMessageBindingChange: function (oEvent) {
-			var aContexts = oEvent.getSource().getContexts(),
-				aMessages,
-				bMessageOpen = false;
-
-			if (bMessageOpen || !aContexts.length) {
-				return;
-			}
-
-			// Extract and remove the technical messages
-			aMessages = aContexts.map(function (oContext) {
-				return oContext.getObject();
-			});
-			sap.ui.getCore().getMessageManager().removeMessages(aMessages);
-
-			this._setUIChanges(true);
-			this._bTechnicalErrors = true;
-			MessageBox.error(aMessages[0].message, {
-				id: "serviceErrorMessageBox",
-				onClose: function () {
-					bMessageOpen = false;
-				}
-			});
-
-			bMessageOpen = true;
-		},
-		onResetChanges: function () {
-			that.byId("smartTab").resetChanges();
-			that._bTechnicalErrors = false;
-			that._setUIChanges();
 		},
 
 	});
