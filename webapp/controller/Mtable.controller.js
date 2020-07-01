@@ -246,7 +246,7 @@ sap.ui.define([
 			that.byId("smartTab").resetChanges();
 			that._bTechnicalErrors = false;
 			that._setUIChanges();
-		},
+		}
 
 	});
 });
