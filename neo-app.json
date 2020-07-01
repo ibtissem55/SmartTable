@@ -74,15 +74,6 @@
       "description": "SAPUI5 Test Resources"
     },
     {
-      "path": "/sap/",
-      "target": {
-        "type": "destination",
-        "name": "OFDCLNT200",
-        "entryPath": "/sap/"
-      },
-      "description": "OFDCLNT200"
-    },
-    {
       "path": "/sap/opu/odata",
       "target": {
         "type": "destination",

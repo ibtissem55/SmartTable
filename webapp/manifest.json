@@ -15,19 +15,7 @@
 			"version": "0.0.0"
 		},
 		"dataSources": {
-			"OFD": {
-				"uri": "/sap/opu/odata/sap/ZGW_REQU_I_SRV/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"annotations": [
-						"annotation0"
-					],
-				
-					"localUri": "localService/metadata.xml"
-				
-				}
-			},
+			
 			"annotation0": {
 				"type": "ODataAnnotation",
 				"uri": "annotations/annotation0.xml",
@@ -81,12 +69,7 @@
 			"cozy": true
 		},
 		"models": {
-			"i18n": {
-				"type": "sap.ui.model.resource.ResourceModel",
-				"settings": {
-					"bundleName": "smartTable.SmartTable.i18n.i18n"
-				}
-			},
+		
 			"": {
 				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
