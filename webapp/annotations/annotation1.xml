@@ -1,0 +1,117 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/sap/opu/odata/sap/ZGW_REQU_I_SRV/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="ZGW_REQU_I_SRV"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SmartTable.annotations.annotation1.ZGW_REQU_I_SRV">
+			<Annotations Target="Metadata.requirement">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>Solution</PropertyPath>
+						<PropertyPath>Branch</PropertyPath>
+						<PropertyPath>Scope_Name</PropertyPath>
+						<PropertyPath>Element</PropertyPath>
+						<PropertyPath>Requirement_ID</PropertyPath>
+						<PropertyPath>Title</PropertyPath>
+						<PropertyPath>Status</PropertyPath>
+						<PropertyPath>Priority</PropertyPath>
+						<PropertyPath>Owner</PropertyPath>
+						<PropertyPath>Created_By</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.HeaderInfo">
+					<Record Type="UI.HeaderInfoType">
+						<PropertyValue Property="TypeName" String="{@i18n&gt;Header}"/>
+						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;lineItem}"/>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.requirement/Solution">
+				<Annotation Term="Common.ValueListWithFixedValues"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="solutionsSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Solution"/>
+									<PropertyValue Property="ValueListProperty" String="SolutionName"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.requirement/Branch">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" Path="Branch"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="solutions/SolutionBranch/Branch"/>
+									<PropertyValue Property="ValueListProperty" String="Branch"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.requirement/Owner">
+				<Annotation Term="Common.ValueListWithFixedValues"/>
+				<Annotation Term="Common.ValueListMapping">
+					<Record Type="Common.ValueListMappingType">
+						<PropertyValue Property="CollectionPath" String="partnerSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Owner"/>
+									<PropertyValue Property="ValueListProperty" String="FirstName"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.requirement/Priority">
+				<Annotation Term="Common.ValueListWithFixedValues"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="PrioritySet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Priority"/>
+									<PropertyValue Property="ValueListProperty" String="PriorityName"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.requirement/Status">
+				<Annotation Term="Common.ValueListWithFixedValues"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="statusSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Status"/>
+									<PropertyValue Property="ValueListProperty" String="StatusName"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

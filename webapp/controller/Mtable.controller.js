@@ -7,12 +7,12 @@ sap.ui.define([
 	FilterOperator, MessageToast,
 	FileUploader, Button, mobileLibrary, List, StandardListItem, Text) {
 	"use strict";
-	var that;
+
+	var oTable;
 	return Controller.extend("smartTable.SmartTable.controller.Mtable", {
 
 		onInit: function () {
-			that = this;
-
+		
 			var oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessageModel = oMessageManager.getMessageModel(),
 				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
@@ -27,6 +27,10 @@ sap.ui.define([
 			this.getView().setModel(oViewModel, "appView");
 			this.getView().setModel(oMessageModel, "message");
 			oMessageModelBinding.attachChange(this.onMessageBindingChange, this);
+			this.oModel = this.getOwnerComponent().getModel();
+			var oContext = this.oModel.createEntry("/requirementSet");
+			var oSmartTab = this.getView().byId("smartTab");
+			oSmartTab.setBindingContext(oContext);
 			this._bTechnicalErrors = false;
 		},
 		/**
@@ -37,12 +41,15 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("add");
 		},
+		onInitialise: function (oEvent) {
+			oTable = oEvent.getSource().getTable();
+			oTable.bindRows("oModelMNA>/");
+		},
 		handleUploadPress: function (oEvt) {
+			var that = this;
 			var branch = sap.ui.getCore().byId("dialogBranch").getSelectedItem().getText();
 			var solution = sap.ui.getCore().byId("dialogSolution").getSelectedItem().getText();
-
 			//upload excel file and get json 
-			var oSmartTab = this.getView().byId("smartTab");
 			var oFileUploader = sap.ui.getCore().byId("fileUploader");
 			oFileUploader.upload();
 			if (!oFileUploader.getValue()) {
@@ -69,28 +76,36 @@ sap.ui.define([
 							raw: true
 						});
 						//	json is our data that we have to set in the json model  
-						var oModelMNA = new sap.ui.model.json.JSONModel();
 						for (var k = 0; k < json.length; ++k) {
 							json[k]["Branch"] = branch;
 							json[k]["Solution"] = solution;
 							json[k]["Status"] = "Draft";
 						}
+						//	this.getView().getModel("oModelMNA").setData(json);
+						var oModelMNA = new sap.ui.model.json.JSONModel();
 						oModelMNA.setData(json);
-
-						//now we have to bind data to our smart table 
-						oSmartTab.setModel(oModelMNA, "oModelMNA");
-						var oTable = oSmartTab.getTable();
+						that.getView().setModel(oModelMNA, "oModelMNA");
 						var aColumns = oTable.getColumns();
 						for (var m = 0; m < aColumns.length; m++) {
 							var sPath = "oModelMNA>" + aColumns[m].data("p13nData").columnKey;
 							sPath = sPath.replace("_", " ");
-
 							aColumns[m].getTemplate().getDisplay().bindText(sPath);
-
 							aColumns[m].getTemplate().getEdit().bindValue(sPath);
 						}
+
 						oTable.bindRows("oModelMNA>/");
-						//	oSmartTab.setTable(oTable);
+						debugger;
+						var c = that.oModel.getPendingChanges();
+						that.oModel.submitChanges({
+							success: function (dataa, response) {
+								sap.m.MessageToast.show("Your requirement is created successfully");
+							},
+							error: function (ea) {
+								that._setBusy(false);
+								that._setUIChanges(false);
+								MessageBox.error(ea.message);
+							}
+						});
 						that._setUIChanges(true);
 					};
 					reader.readAsArrayBuffer(file);
@@ -113,16 +128,16 @@ sap.ui.define([
 		},
 		onButtonPress: function (oEvent) {
 			var oButton = oEvent.getSource();
-			that.byId("actionSheet").openBy(oButton);
+			this.byId("actionSheet").openBy(oButton);
 		},
 		onWorkPCackagePress: function (oEvent) {
 			var oButton = oEvent.getSource();
-			that.byId("actionWP").openBy(oButton);
+			this.byId("actionWP").openBy(oButton);
 		},
 		solutionBranch: function (oEvent) {
 
 			var solutionValue = oEvent.getSource().getProperty("selectedKey");
-			if (solutionValue != "") {
+			if (solutionValue !== "") {
 				this.getView().getModel("appView").setProperty("/solutionEmpty", false);
 			}
 			var idBranch = sap.ui.getCore().byId("dialogBranch");
@@ -133,9 +148,8 @@ sap.ui.define([
 			idBranch.setSelectedKey(null);
 			this.getOwnerComponent().getModel().read(vPath, {
 				success: function (oRetrievedResult) {
-
 					var items = oRetrievedResult.results;
-					if (items.length != 0) {
+					if (items.length !== 0) {
 						idBranch.setEnabled(true);
 						idBranch.bindItems({
 							path: vPath,
@@ -162,8 +176,8 @@ sap.ui.define([
 
 		},
 		_setBusy: function (bIsBusy) {
-			var oModel = this.getView().getModel("appView");
-			oModel.setProperty("/busy", bIsBusy);
+			var oModele = this.getView().getModel("appView");
+			oModele.setProperty("/busy", bIsBusy);
 		},
 		_setUIChanges: function (bHasUIChanges) {
 			if (this._bTechnicalErrors) {
@@ -172,39 +186,40 @@ sap.ui.define([
 			} else if (bHasUIChanges === undefined) {
 				bHasUIChanges = this.getView().getModel().hasPendingChanges();
 			}
-			var oModel = this.getView().getModel("appView");
-			oModel.setProperty("/hasUIChanges", bHasUIChanges);
+			var oModele = this.getView().getModel("appView");
+			oModele.setProperty("/hasUIChanges", bHasUIChanges);
 		},
-		_getText: function (sTextId, aArgs) {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId, aArgs);
+		// _getText: function (sTextId, aArgs) {
+		// 	return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId, aArgs);
 
+		// },
+		fnSuccess: function (data, response) {
+			this._setBusy(false);
+			var sMessage = this._getText("changesSentMessage");
+			MessageToast.show(sMessage);
+			this._setUIChanges(false);
+		},
+		fnError: function (e) {
+			this._setBusy(false);
+			this._setUIChanges(false);
+			MessageBox.error(e.message);
 		},
 		onSave: function () {
-			var oModel = that.byId("smartTab").getModel();
-			oModel.setDeferredGroups("myGroupId");
-			oModel.setChangeGroups({
-				"EntityTypeName": {
-					groupId: "myGroupId"
-				}
+			debugger;
+
+			//	var oSmartTab = this.byId("smartTab");
+			//	var oModele = this.byId("smartTab").getModel();
+			//	var oModel = this.byId("smartTab").getModel("oModelMNA");
+			this.oModel.getPendingChanges();
+			//oModele.getPendingChanges();
+			//oModel.setDeferredGroups("myGroupId");
+			//oModel.setUseBatch(true);
+			this._setBusy(true); // Lock UI until submit is resolved.
+			this.oModel.submitChanges({
+				success: this.fnSuccess,
+				error: this.fnError
 			});
-			oModel.setUseBatch(true);
-			that._setBusy(true); // Lock UI until submitBatch is resolved.
-			var fnSuccess = function (data, response) {
-				that._setBusy(false);
-				var sMessage = that._getText("changesSentMessage");
-				MessageToast.show(sMessage);
-				that._setUIChanges(false);
-			};
-			var fnError = function (e) {
-				that._setBusy(false);
-				that._setUIChanges(false);
-				MessageBox.error(e.message);
-			};
-			oModel.submitChanges({
-				success: fnSuccess,
-				error: fnError
-			});
-			that._bTechnicalErrors = false;
+			this._bTechnicalErrors = false;
 		},
 		onInputChange: function (oEvt) {
 			if (oEvt.getParameter("escPressed")) {
@@ -212,7 +227,7 @@ sap.ui.define([
 			} else {
 				this._setUIChanges(true);
 				if (oEvt.getSource().getParent().getBindingContext().getProperty("Solution")) {
-					that.getView().getModel("appView").setProperty("/solutionEmpty", false);
+					this.getView().getModel("appView").setProperty("/solutionEmpty", false);
 				}
 			}
 		},

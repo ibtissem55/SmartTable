@@ -15,22 +15,25 @@
 			"version": "0.0.0"
 		},
 		"dataSources": {
-			
-			"annotation0": {
-				"type": "ODataAnnotation",
-				"uri": "annotations/annotation0.xml",
-				"settings": {
-					"localUri": "annotations/annotation0.xml"
-				}
-			},
 			"ZGW_REQU_I_SRV": {
 				"uri": "/sap/opu/odata/sap/ZGW_REQU_I_SRV/",
 				"type": "OData",
 				"settings": {
-					"localUri": "localService/metadata.xml"
+					"localUri": "localService/metadata.xml",
+					"annotations": [
+						"annotation1"
+					]
+				}
+			},
+			"annotation1": {
+				"type": "ODataAnnotation",
+				"uri": "annotations/annotation1.xml",
+				"settings": {
+					"localUri": "annotations/annotation1.xml"
 				}
 			}
-		},"resources": "resources.json"
+		},
+		"resources": "resources.json"
 	},
 	"sap.ui": {
 		"technology": "UI5",
@@ -69,12 +72,11 @@
 			"cozy": true
 		},
 		"models": {
-		
 			"": {
 				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
 					"defaultOperationMode": "Server",
-					"defaultBindingMode": "OneWay",
+					"defaultBindingMode": "TwoWay",
 					"defaultCountMode": "Request"
 				},
 				"dataSource": "ZGW_REQU_I_SRV",

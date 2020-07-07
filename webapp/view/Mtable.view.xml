@@ -27,7 +27,7 @@
 		</customHeader>
 		<VBox fitContainer="false">
 			<smartFilterBar:SmartFilterBar id="smartFilterBar" persistencyKey="UniqueAndStablePersistencyKey" entitySet="requirementSet" assignedFiltersChanged="onFiltersChanged"
-				basicSearchFieldName="RequirementId" enableBasicSearch="true" considerSelectionVariants="true" >
+			considerSelectionVariants="true" enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true" useProvidedNavigationProperties="true">
 				<!--<smartFilterBar:controlConfiguration>-->
 				<!--	<smartFilterBar:ControlConfiguration key="CustomFilterField" index="1" label="Solution" groupId="_BASIC" width="300px"-->
 				<!--		visibleInAdvancedArea="true">-->
@@ -49,18 +49,18 @@
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
 			<smartTable:SmartTable id="smartTab" entitySet="requirementSet" smartFilterId="smartFilterBar" smartVariant="pageVariantId"
-				useVariantManagement="true" useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport"
-				showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" customData:useSmartField="false" customData:useSmartToggle="true"
+				useVariantManagement="true" beforeRebindTable="onDataReceived" useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport"
+				showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" customData:useSmartField="false" customData:useSmartToggle="true" initialise="onInitialise" 
 				enableAutoBinding="true" editable="true" class="sapUiResponsiveContentPadding" tableBindingPath="oModelMNA>/" initiallyVisibleFields="Requirement_ID,Title,Description,Status,Priority,Owner,Created_By,Element,Work_Package_ID,Solution,Branch,Value_Points,Effort_Points,Local,Classification_Attributes">
 				<!--<smartTable:layoutData>-->
 				<!--	<FlexItemData growFactor="1" baseSize="0%"/>-->
 				<!--</smartTable:layoutData>-->
-				<!--<smartTable:customToolbar>-->
-				<!--	<OverflowToolbar design="Transparent">-->
-				<!--		<ToolbarSpacer/>-->
-				<!--		<OverflowToolbarButton icon="sap-icon://sort" text="Sort" press="onSort"/>-->
-				<!--	</OverflowToolbar>-->
-				<!--</smartTable:customToolbar>-->
+				<smartTable:customToolbar>
+					<OverflowToolbar design="Transparent">
+						<ToolbarSpacer/>
+						<OverflowToolbarButton icon="sap-icon://save"  press="onSave" tooltip="Save"/>
+					</OverflowToolbar>
+				</smartTable:customToolbar>
 				
 			</smartTable:SmartTable>
 		</VBox>
@@ -80,19 +80,12 @@
 						<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
 					</dependents>
 				</Button>
-				<Button
-								id="saveButton"
-								type="Emphasized"
-								text="save"
+							<!--<Button-->
+							<!--	id="doneButton"-->
+							<!--	text="cancel"-->
 							
-							visible="{appView>/hasUIChanges}"
-								press=".onSave"/>
-							<Button
-								id="doneButton"
-								text="cancel"
-								visible="{appView>/hasUIChanges}"
-								press=".onResetChanges"
-								/>
+							<!--	press=".onResetChanges"-->
+							<!--	/>-->
 				
 			</OverflowToolbar>
 				  

@@ -4,7 +4,7 @@
 	xmlns:richtexteditor="sap.ui.richtexteditor">
 	<Page title="Create new Requirement" showNavButton="true" navButtonPress=".onNavBack">
 		<VBox fitContainer="true">
-			<smartForm:SmartForm id="smartForm" editTogglable="true" title="Create Requirement" flexEnabled="false">
+			<smartForm:SmartForm id="smartForm" title="Create Requirement" editTogglable="true" flexEnabled="false">
 				<smartForm:Group>
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Title}"/>
@@ -13,16 +13,21 @@
 						<smartField:SmartField value="{Priority}"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Status}"/>
+						<smartField:SmartField id="status" value="{Status}">
+						<smartField:configuration>
+							<smartField:Configuration controlType="auto" displayBehaviour="descriptionOnly"/>
+						</smartField:configuration>
+							</smartField:SmartField>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Owner}"/>
 					</smartForm:GroupElement>
-					<smartForm:GroupElement>
-						<smartField:SmartField value="{Category}"/>
-					</smartForm:GroupElement>
-					<smartForm:GroupElement>
+					<!--<smartForm:GroupElement>-->
+					<!--	<smartField:SmartField value="{Category}"/>-->
+					<!--</smartForm:GroupElement>-->
+					<smartForm:GroupElement >
 						<smartField:SmartField value="{Solution}"/>
+					
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Branch}"/>
@@ -51,8 +56,7 @@
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{ClassifAttribute}"/>
 					</smartForm:GroupElement>
-					
-						<smartForm:GroupElement>
+					<smartForm:GroupElement>
 						<smartField:SmartField value="{Description}">
 							<smartField:configuration>
 								<smartField:Configuration controlType="auto" displayBehaviour="descriptionAndId"/>
@@ -66,9 +70,8 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-					<Button text="Submit" type="Default" press="handleSubmit"/>
+				<Button text="Submit" type="Default" press="handleSubmit"/>
 				<Button text="Cancel" type="Reject" press="handleCancel"/>
-			
 			</OverflowToolbar>
 		</footer>
 	</Page>
