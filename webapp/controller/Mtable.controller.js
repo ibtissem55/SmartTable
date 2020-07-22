@@ -11,14 +11,6 @@ sap.ui.define([
 	return Controller.extend("smartTable.SmartTable.controller.Mtable", {
 
 		onInit: function () {
-
-			// var oMessageManager = sap.ui.getCore().getMessageManager(),
-			// 	oMessageModel = oMessageManager.getMessageModel(),
-			// 	oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
-			// 		new Filter("technical", FilterOperator.EQ, true)),
-			//	this.getView().setModel(oMessageModel, "message");
-			//	oMessageModelBinding.attachChange(this.onMessageBindingChange, this);
-
 			var oViewModel = new sap.ui.model.json.JSONModel({
 				busy: false,
 				hasUIChanges: false,
@@ -241,41 +233,13 @@ sap.ui.define([
 			var table = this.byId("smartTab");
 			var d = this.getView().getModel("oModelMNA").getData();
 			var oContext = new sap.ui.model.Context(this.oModel, "/requirementSet");
-			//	var oBind = tab.getBinding("requirementSet");
-			//	var oBinding = tab.getBindingContext("requirementSet");
-		this.oModel.setDeferredGroups(["addRequ"]);
-
+			this.oModel.setDeferredGroups(["addRequ"]);
 			for (var i = 0; i < d.length; i++) {
-				j = this.renameKeys(d[i]);
-				//	oContext = oBinding.create(j); 
-				//	that.oModel.attachMetadataLoaded(function () {
 				oContext = this.oModel.createEntry("/requirementSet", {
 					properties: j,
-					changeSetId:"changeset "+i
+					changeSetId: "changeset " + i
 				});
 				table.setBindingContext(oContext);
-
-				//});
-				/*************************************/
-				// oDataModeli.attachMetadataLoaded(function () {
-				// 	var o = oDataModeli.createEntry("/requirementSet", {
-				// 		properties: j
-				// 	});
-
-				//	});
-				//	oODataModel.getMetaModel();
-				//	var b = new sap.ui.model.json.JSONModel.getMetadata(json);
-				//	b.setData(json);
-				//	var k = that.getMetadata();
-				//var g = k.getConfig();
-				//	var m = json.getMetadata() ;
-				//			json[1];
-
-				// for (var i = 0; i < json.length; i++) {
-				// oContext=	that.oTable.getBindingContext().oModel.createEntry("/requirementSet", {
-				// 		properties: json[i]
-				// 	});
-				// that.oTable.setBindingContext(oContext);
 			}
 			var c = this.oModel.getPendingChanges();
 			this._setBusy(true); // Lock UI until submit is resolved.
@@ -328,153 +292,3 @@ sap.ui.define([
 		}
 	});
 });
-//	var data = this.oTable.getRows();
-//		var c = data[2].data("p13nData");
-//	var data=	this.getView().getModel("oModelMNA").getProperty(this.oTable.getItems()[1].getBindingContext().getPath())
-//	var c =data[1].data("p13nData");
-//	that.getView().getModel("oModelMNA").setData(json);
-//	var c =that.oModel.getHeaders();
-//	debugger
-// 							var DataLoaded = that.oModel.read("/requirementSet",
-// {success: function(response){
-//               //response will have the retrun of the request
-// 	debugger;
-//     MessageToast.show("Success");
-// }, error: function(e){
-//     MessageToast.show("Failed");}
-// });
-
-//	debugger;
-//Table Column Definitions
-//		var oMeta = that.oModel.getServiceMetadata();
-
-//	for (var m = 0; m < oMeta.dataServices.schema[0].entityType[0].property.length; m++) {
-// var sPath = "oModelMNA>" + aColumns[m].data("p13nData").columnKey;
-// 	var property = oMeta.dataServices.schema[0].entityType[0].property[];
-// 		sPath = sPath.replace("_", " ");
-// 	aColumns[m].getTemplate().getDisplay().bindText(property);
-// 	aColumns[m].getTemplate().getEdit().bindValue(sPath);
-// 	// oControl = new sap.ui.commons.TextField().bindProperty(json[m],property.name);
-// 	//that.oTable.addColumn(new sap.ui.table.Column({label:new sap.ui.commons.Label({text: property.name}), template: oControl, sortProperty: property.name, filterProperty: property.name, filterOperator: sap.ui.model.FilterOperator.EQ, flexible: true, width: "125px" }));
-//	}
-//	var aColumns = that.oTable.getColumns();
-//	var oModelMNA = new sap.ui.model.json.JSONModel();
-//	oModelMNA.setData(json);
-// that.getView().setModel(oModelMNA, "oModelMNA");
-// var aColumns = that.oTable.getColumns();
-//		var r = this.oTable.getAggregation("rows")
-//	var data = this.getView().getModel("oModelMNA");
-// var d1 = data.getProperty("/" + 1 + "/Category - Category GUID");
-// var oModeli = new sap.ui.model.odata.v2.ODataModel({
-// 	serviceUrl: "https: //ldciofd.mo.sap.corp:44378/sap/opu/odata/sap/ZGW_REQU_I_SRV/requirementSet",
-// 	serviceUrlParams: {
-// 		Requirement_ID: data.getProperty("/Requirement ID"),
-// 		Title: data.getProperty("/Title"),
-// 		Description: data.getProperty("/Description"),
-// 		Status: data.getProperty("/Status"),
-// 		Priority: data.getProperty("/Priority"),
-// 		Owner: data.getProperty("/Owner"),
-// 		Created_By: data.getProperty("/Created By"),
-// 		TTUNC_PATH: data.getProperty("/TRUNC PATH"),
-// 		Work_Package_ID: data.getProperty("/Work Package ID"),
-// 		WP_Description: data.getProperty("/WP Description"),
-// 		Value_Points: data.getProperty("/Value Points"),
-// 		Effort_Points: data.getProperty("/Effort Points"),
-// 		WpCrmLink: data.getProperty("/Wp Crm Link"),
-// 		REQUIREMENT_GUID: data.getProperty("/Requirement GUID"),
-// 		Work_Package_GUID: data.getProperty("/Work Package GUID"),
-// 		Changed_At: data.getProperty("/Changed At"),
-// 		Changed_By: data.getProperty("/Changed By"),
-// 		Created_At: data.getProperty("/Created At"),
-// 		Element: data.getProperty("/Element Name"),
-// 		Element_ID: data.getProperty("/Element ID"),
-// 		Status_ID: data.getProperty("/Status ID"),
-// 		Crm_Link: data.getProperty("/Crm Link"),
-// 		Owner_BP_No: data.getProperty("/Owner BP Number"),
-// 		Solution_ID: data.getProperty("/Solution ID"),
-// 		Branch_ID: data.getProperty("/Branch ID"),
-// 		Priority_ID: data.getProperty("/Priority ID"),
-// 		External_ID: data.getProperty("/External ID"),
-// 		External_URL: data.getProperty("/External URL"),
-// 		Scope_ID: data.getProperty("/Scope ID"),
-// 		Scope_Name: data.getProperty("/Scope Name"),
-// 		Status_ID: data.getProperty("/Status ID"),
-// 		Suggested_Solution: data.getProperty("/Suggested Solution"),
-// 		CategoryGUID: data.getProperty("/Category GUID"),
-// 		Requ_number: data.getProperty("/Number of requirements"),
-// 		// Category-CatGuid: data[1].getProperty("/Category/Category GUID"),
-// 		// Category-CatId: data[1].getProperty("/Category/Category ID"),
-// 		// Category-ParentGuid: data[1].getProperty("/Category/Parent Category GUID"),
-// 		// Category-CatLevel: data[1].getProperty("/Category/Category Level"),
-// 		// Category-AspId: data[1].getProperty("/Category/Asp ID"),
-// 		// Category-Description:data[1].getProperty("Category/Description"),
-// 		// Category-Editability:data[1].getProperty("Category/Editability"),
-// 		// ClassifAttributes-AttrName: data[1].getProperty("/ClassifAttributes/Component name"),
-// 		// Business_Process_Expert_Name: data[1].getProperty("/Business Process Expert Name"),
-// 		// Business_Process_Expert_No: data[1].getProperty("/Business Process Expert No"),
-// 		Local: data.getProperty("/Local"),
-// 		WRICEF: data.getProperty("/WRICEF"),
-// 	}
-// });
-//	var oModeli;
-//	var d = data.getData();
-//	for (var i = 0; i < d.length; i++) {
-// 	oModeli = new sap.ui.model.odata.v2.ODataModel({
-// 		serviceUrl: "https: //ldciofd.mo.sap.corp:44378/sap/opu/odata/sap/ZGW_REQU_I_SRV/requirementSet/",
-// 		serviceUrlParams: {
-// 			Requirement_ID: data.getProperty("/" + i + "/Requirement ID"),
-// 			Title: data.getProperty("/" + i + "/Title"),
-// 			Description: data.getProperty("/" + i + "/Description"),
-// 			Status: data.getProperty("/" + i + "/Status"),
-// 			Priority: data.getProperty("/" + i + "/Priority"),
-// 			Owner: data.getProperty("/" + i + "/Owner"),
-// 			Created_By: data.getProperty("/" + i + "/Created By"),
-// 			TTUNC_PATH: data.getProperty("/" + i + "/TRUNC PATH"),
-// 			Work_Package_ID: data.getProperty("/" + i + "/Work Package ID"),
-// 			WP_Description: data.getProperty("/" + i + "/WP Description"),
-// 			Value_Points: data.getProperty("/" + i + "/Value Points"),
-// 			Effort_Points: data.getProperty("/" + i + "/Effort Points"),
-// 			WpCrmLink: data.getProperty("/" + i + "/Wp Crm Link"),
-// 			REQUIREMENT_GUID: data.getProperty("/" + i + "/Requirement GUID"),
-// 			Work_Package_GUID: data.getProperty("/" + i + "/Work Package GUID"),
-// 			Changed_At: data.getProperty("/" + i + "/Changed At"),
-// 			Changed_By: data.getProperty("/" + i + "/Changed By"),
-// 			Created_At: data.getProperty("/" + i + "/Created At"),
-// 			Element: data.getProperty("/" + i + "/Element Name"),
-// 			Element_ID: data.getProperty("/" + i + "/Element ID"),
-// 			Status_ID: data.getProperty("/" + i + "/Status ID"),
-// 			Crm_Link: data.getProperty("/" + i + "/Crm Link"),
-// 			Owner_BP_No: data.getProperty("/" + i + "/Owner BP Number"),
-// 			Solution_ID: data.getProperty("/" + i + "/Solution ID"),
-// 			Branch_ID: data.getProperty("/" + i + "/Branch ID"),
-// 			Priority_ID: data.getProperty("/" + i + "/Priority ID"),
-// 			External_ID: data.getProperty("/" + i + "/External ID"),
-// 			External_URL: data.getProperty("/" + i + "/External URL"),
-// 			Scope_ID: data.getProperty("/" + i + "/Scope ID"),
-// 			Scope_Name: data.getProperty("/" + i + "/Scope Name"),
-// 			Status_ID: data.getProperty("/" + i + "/Status ID"),
-// 			Suggested_Solution: data.getProperty("/" + i + "/Suggested Solution"),
-// 			CategoryGUID: data.getProperty("/" + i + "/Category GUID"),
-// 			Requ_number: data.getProperty("/" + i + "/Number of requirements"),
-// 			//	Category->CatGuid: data.getProperty("/" + i + "/Category/Category GUID"),
-// 			// Category-CatId: data[1].getProperty("/Category/Category ID"),
-// 			// Category-ParentGuid: data[1].getProperty("/Category/Parent Category GUID"),
-// 			// Category-CatLevel: data[1].getProperty("/Category/Category Level"),
-// 			// Category-AspId: data[1].getProperty("/Category/Asp ID"),
-// 			// Category-Description:data[1].getProperty("Category/Description"),
-// 			// Category-Editability:data[1].getProperty("Category/Editability"),
-// 			// ClassifAttributes-AttrName: data[1].getProperty("/ClassifAttributes/Component name"),
-// 			// Business_Process_Expert_Name: data[1].getProperty("/Business Process Expert Name"),
-// 			// Business_Process_Expert_No: data[1].getProperty("/Business Process Expert No"),
-// 			Local: data.getProperty("/" + i + "/Local"),
-// 			WRICEF: data.getProperty("/" + i + "/WRICEF"),
-// 		}
-// 	});
-// 	this.oModel.createEntry("/requirementSet", {
-// 		properties: oModeli
-// 	});
-// }
-//		var data =that.getView().getModel("oModelMNA");
-//	var smartTab = that.byId("smartTab");
-//		var oModeli;
-//		var d = data.getData();
