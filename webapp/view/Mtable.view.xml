@@ -48,10 +48,10 @@
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
-			<smartTable:SmartTable id="smartTab" entitySet="requirementSet" smartFilterId="smartFilterBar" smartVariant="pageVariantId"
+			<smartTable:SmartTable id="smartTab" entitySet="requirementSet" smartFilterId="smartFilterBar" smartVariant="pageVariantId" 
 				useVariantManagement="true" beforeRebindTable="onDataReceived" useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport"
 				showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" customData:useSmartField="false" customData:useSmartToggle="true" initialise="onInitialise" 
-				enableAutoBinding="true" editable="true" class="sapUiResponsiveContentPadding" tableBindingPath="oModelMNA>/" initiallyVisibleFields="Requirement_ID,Title,Description,Status,Priority,Owner,Created_By,Element,Work_Package_ID,Solution,Branch,Value_Points,Effort_Points,Local,Classification_Attributes">
+				 editable="true" class="sapUiResponsiveContentPadding" enableAutoBinding="true" tableBindingPath="oModelMNA>/" editTogglable="true" initiallyVisibleFields="Requirement_ID,Title,Description,Status,Priority,Owner,OwnerBpName,Owner_BP_No,Created_By,Element,Work_Package_ID,Solution,Branch,Value_Points,Effort_Points,Local,Classification_Attributes">
 				<!--<smartTable:layoutData>-->
 				<!--	<FlexItemData growFactor="1" baseSize="0%"/>-->
 				<!--</smartTable:layoutData>-->
@@ -61,7 +61,9 @@
 						<OverflowToolbarButton icon="sap-icon://save"  press="onSave" tooltip="Save"/>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
-				
+					<smartTable:layoutData>
+					<FlexItemData growFactor="1" baseSize="auto"/>
+				</smartTable:layoutData>
 			</smartTable:SmartTable>
 		</VBox>
 		<footer>

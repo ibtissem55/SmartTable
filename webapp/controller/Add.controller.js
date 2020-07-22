@@ -8,20 +8,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		onInit: function () {
 
-			var oProperties = {
-				Title: "",
-				Priority: "",
-				Status: "Draft",
-				Owner: "",
-				Solution: undefined,
-				Branch: undefined,
-				Element: undefined,
-				Description: undefined,
-				Value_Points:undefined,
-				Effort_Points:undefined,
-		
-			};
-			debugger;
+			var oProperties = {};
+
 			this.oModel = this.getOwnerComponent().getModel();
 			var oContext = this.oModel.createEntry("/requirementSet", {
 				properties: oProperties
@@ -51,8 +39,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 		handleSubmit: function (oEvent) {
-			debugger;
-			var c = this.oModel.getPendingChanges();
+
 			this.oModel.submitChanges({
 				success: this.fnSuccess,
 				error: this.fnError
@@ -71,7 +58,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			// });
 		},
 		fnSuccess: function (dataa, response) {
-			debugger;
 			sap.m.MessageToast.show("Your requirement is created successfully");
 		},
 		fnError: function (ea) {

@@ -4,7 +4,7 @@
 	xmlns:richtexteditor="sap.ui.richtexteditor">
 	<Page title="Create new Requirement" showNavButton="true" navButtonPress=".onNavBack">
 		<VBox fitContainer="true">
-			<smartForm:SmartForm id="smartForm" title="Create Requirement" editTogglable="true" flexEnabled="false">
+			<smartForm:SmartForm id="smartForm" title="Create Requirement" editTogglable="false" editable ="true" flexEnabled="false">
 				<smartForm:Group>
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Title}"/>
@@ -32,9 +32,9 @@
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Branch}"/>
 					</smartForm:GroupElement>
-					<smartForm:GroupElement>
-						<smartField:SmartField value="{Scope}"/>
-					</smartForm:GroupElement>
+					<!--<smartForm:GroupElement>-->
+					<!--	<smartField:SmartField value="{Scope}"/>-->
+					<!--</smartForm:GroupElement>-->
 					<smartForm:GroupElement>
 						<smartField:SmartField value="{Element}"/>
 					</smartForm:GroupElement>
