@@ -1,9 +1,9 @@
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-	xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:Table="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:t="sap.ui.table"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
 	xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:layout="sap.ui.layout" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
-	xmlns:vm="sap.ui.comp.variants" xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:v="sap.ui.comp.variants"
-	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.Mtable" height="100%" xmlns:tnt="sap.tnt">
+	xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:v="sap.ui.comp.variants" xmlns:smartTable="sap.ui.comp.smarttable"
+	controllerName="smartTable.SmartTable.controller.Mtable" height="100%" xmlns:tnt="sap.tnt">
 	<Page id="floatingFooterPage" floatingFooter="true" title="Requirements Management"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
 		<customHeader title="Requirements Management">
@@ -11,12 +11,19 @@
 				<Bar>
 					<contentLeft>
 						<OverflowToolbar>
-							<!--<v:VariantManagement select="onSelectVariant" save="onSaveVariant" id="VMId" showSetAsDefault="true" enabled="true" manage="onManageVM"-->
-							<!--	showExecuteOnSelection="false" variantItems="{/variant}" showShare="false" class="sapUiMediumMarginTop">-->
-							<!--	<v:variantItems>-->
-							<!--		<v:VariantItem key="{key}" text="{Name}" executeOnSelection="true"/>-->
-							<!--	</v:variantItems>-->
-							<!--</v:VariantManagement>-->
+							<v:VariantManagement id="variantManagement" select=".onOpenWp" save="onSaveVariant" enabled="true" manage="onManageVM"
+								showExecuteOnSelection="false" variantItems="{/variantSet}" showShare="false" class="sapUiMediumMarginTop">
+								<v:variantItems>
+									<v:VariantItem key="{variantID}" text="{variantDesc}" global="true" readOnly="false"/>
+								</v:variantItems>
+							</v:VariantManagement>
+							<!--				<smartVariantManagement:SmartVariantManagement id="__SVM01" persistencyKey="PageVariantPKey" showShare="true" showExecuteOnSelection="true"-->
+							<!--					entitySet="requirementSet">-->
+							<!--				<v:variantItems>-->
+							<!--	<v:VariantItem text="My Global Variant" key="MGV" global="true" readOnly="false" lifecyclePackage="$TMP"/>-->
+							<!--	<v:VariantItem text="My Better Variant" key="MBV" global="false" readOnly="false" lifecyclePackage="$TMP"/>-->
+							<!--</v:variantItems>-->
+							<!--				</smartVariantManagement:SmartVariantManagement>-->
 						</OverflowToolbar>
 					</contentLeft>
 					<contentMiddle>
@@ -26,8 +33,9 @@
 			</tnt:ToolHeader>
 		</customHeader>
 		<VBox fitContainer="false">
-			<smartFilterBar:SmartFilterBar id="smartFilterBar" persistencyKey="UniqueAndStablePersistencyKey" entitySet="requirementSet" assignedFiltersChanged="onFiltersChanged"
-			considerSelectionVariants="true" enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true" useProvidedNavigationProperties="true">
+			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" assignedFiltersChanged="onFiltersChanged"
+				considerSelectionVariants="true" enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true"
+				useProvidedNavigationProperties="true" smartVariant="variantManagement" useToolbar="false">
 				<!--<smartFilterBar:controlConfiguration>-->
 				<!--	<smartFilterBar:ControlConfiguration key="CustomFilterField" index="1" label="Solution" groupId="_BASIC" width="300px"-->
 				<!--		visibleInAdvancedArea="true">-->
@@ -36,66 +44,81 @@
 				<!--				<core:Item key="{SolutionName}" text="{SolutionName}"/>-->
 				<!--			</Select>-->
 				<!--				</smartFilterBar:customControl>-->
-						
 				<!--		<smartFilterBar:customControl>	<Select id="selectBranch" forceSelection="false" selectedKey="{BranchId}" items="{/requirementSet}">-->
 				<!--				<core:Item key="{BranchName}" text="{BranchName}"/>-->
 				<!--			</Select>-->
 				<!--		</smartFilterBar:customControl>-->
 				<!--	</smartFilterBar:ControlConfiguration>-->
 				<!--</smartFilterBar:controlConfiguration>-->
-				 <!--layout data used to make the table growing but the filter bar fixed -->
+				<!--layout data used to make the table growing but the filter bar fixed -->
 				<smartFilterBar:layoutData>
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
-			<smartTable:SmartTable id="smartTab" entitySet="requirementSet" smartFilterId="smartFilterBar" smartVariant="pageVariantId" 
-				useVariantManagement="true" beforeRebindTable="onDataReceived" useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport"
-				showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" customData:useSmartField="false" customData:useSmartToggle="true" initialise="onInitialise" 
-				 editable="true" class="sapUiResponsiveContentPadding" enableAutoBinding="true" tableBindingPath="oModelMNA>/" editTogglable="true" initiallyVisibleFields="Requirement_ID,Title,Description,Status,Priority,Owner,OwnerBpName,Owner_BP_No,Created_By,Element,Work_Package_ID,Solution,Branch,Value_Points,Effort_Points,Local,Classification_Attributes">
+			<smartTable:SmartTable id="smartTab" entitySet="requirementSet" smartFilterId="smartFilterBar" beforeRebindTable="onDataReceived"
+				useTablePersonalisation="true" tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport" showRowCount="true"
+				smartVariant="variantManagement" customData:useSmartField="false" customData:useSmartToggle="true" fieldChange="onInputChange"
+				editable="true" class="sapUiResponsiveContentPadding" enableAutoBinding="true" tableBindingPath="oModelMNA>/" editTogglable="true"
+				editToggled="onEditToggeled">
 				<!--<smartTable:layoutData>-->
 				<!--	<FlexItemData growFactor="1" baseSize="0%"/>-->
 				<!--</smartTable:layoutData>-->
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>
-						<OverflowToolbarButton icon="sap-icon://save"  press="onSave" tooltip="Save"/>
+						<OverflowToolbarButton icon="sap-icon://save" visible="{appView>/hasUIChanges}" press="onSave" tooltip="Save"/>
+						<OverflowToolbarButton visible="{appView>/hasInputChanges}" id="doneButton" icon="sap-icon://decline" press="onResetChanges"/>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
-					<smartTable:layoutData>
-					<FlexItemData growFactor="1" baseSize="auto"/>
-				</smartTable:layoutData>
+				<t:Table>
+					<t:columns>
+						<t:Column id="Description" width="100px" hAlign="Begin">
+							<t:customData>
+								<core:CustomData key="p13nData" value='\{"columnKey": "Description","columnIndex":"4","leadingProperty": "Description","type": "text"}'/>
+							</t:customData>
+							<Label text="Description"/>
+							<t:template>
+								<HBox fitContainer="true" alignItems="Stretch">
+									<layoutData>
+										<FlexItemData growFactor="3"/>
+									</layoutData>
+									<Input id="descInput" textFormatMode="KeyValue" editable="{appView>/editable}">
+										<suggestionItems>
+											<core:ListItem key="{RequirementID}" text="{Description}" additionalText="{Description}"/>
+										</suggestionItems>
+									</Input>
+									<Button id="buttondesc" press="press" icon="sap-icon://text-formatting" formatter='' visible="{appView>/editable}"/>
+								</HBox>
+							</t:template>
+						</t:Column>
+					</t:columns>
+					<t:rowSettingsTemplate>
+						<t:RowSettings highlight="{= ${appView>/highlight} === true ? 'Success' : ${appView>/highlight} === false ? 'Error' : 'None'}"></t:RowSettings>
+					</t:rowSettingsTemplate>
+				</t:Table>
 			</smartTable:SmartTable>
 		</VBox>
 		<footer>
-			  <Bar>
-    <contentRight>
-			<OverflowToolbar>
-				<ToolbarSpacer/>
-				
-				<Button text="Work Package" class="sapUiSmallMargin" press=".onWorkPCackagePress">
-					<dependents>
-						<core:Fragment fragmentName="smartTable.SmartTable.view.WpAction" type="XML"/>
-					</dependents>
-				</Button>
-				<Button text="Requirements" class="sapUiSmallMargin" press=".onButtonPress">
-					<dependents>
-						<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
-					</dependents>
-				</Button>
-							<!--<Button-->
-							<!--	id="doneButton"-->
-							<!--	text="cancel"-->
-							
-							<!--	press=".onResetChanges"-->
-							<!--	/>-->
-				
-			</OverflowToolbar>
-				  
-    </contentRight>
-     <contentLeft>
-     		<Button icon="sap-icon://message-error" type="Transparent" />
-     </contentLeft>
-    </Bar>
+			<Bar>
+				<contentRight>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Work Package" class="sapUiSmallMargin" press=".onWorkPCackagePress">
+							<dependents>
+								<core:Fragment fragmentName="smartTable.SmartTable.view.WpAction" type="XML"/>
+							</dependents>
+						</Button>
+						<Button text="Requirements" class="sapUiSmallMargin" press=".onButtonPress">
+							<dependents>
+								<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>
+							</dependents>
+						</Button>
+					</OverflowToolbar>
+				</contentRight>
+				<contentLeft>
+					<Button icon="sap-icon://message-popup" type="Transparent" id="popover" text="{= ${message>/}.length }" press="handleSave"/>
+				</contentLeft>
+			</Bar>
 		</footer>
 	</Page>
 </mvc:View>

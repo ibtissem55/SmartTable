@@ -7,39 +7,39 @@
 			<smartForm:SmartForm id="smartForm" title="Create Requirement" editTogglable="false" editable ="true" flexEnabled="false">
 				<smartForm:Group>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Title}"/>
+						<smartField:SmartField value="{Title}" mandatory="true" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Priority}"/>
+						<smartField:SmartField value="{Priority}"  mandatory="true" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField id="status" value="{Status}">
+						<smartField:SmartField showValueHelp="true" id="status" value="{Status}" mandatory="true" change="onchangeModelValue">
 						<smartField:configuration>
 							<smartField:Configuration controlType="auto" displayBehaviour="descriptionOnly"/>
 						</smartField:configuration>
 							</smartField:SmartField>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Owner}"/>
+						<smartField:SmartField value="{Owner}" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<!--<smartForm:GroupElement>-->
 					<!--	<smartField:SmartField value="{Category}"/>-->
 					<!--</smartForm:GroupElement>-->
 					<smartForm:GroupElement >
-						<smartField:SmartField value="{Solution}"/>
+						<smartField:SmartField value="{Solution}" change="onchangeModelValue"/>
 					
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Branch}"/>
+						<smartField:SmartField value="{Branch}" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<!--<smartForm:GroupElement>-->
 					<!--	<smartField:SmartField value="{Scope}"/>-->
 					<!--</smartForm:GroupElement>-->
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Element}"/>
+						<smartField:SmartField value="{Element}" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Business_Process_Expert_Name}">
+						<smartField:SmartField value="{Business_Process_Expert_Name}" change="onchangeModelValue">
 							<smartField:configuration>
 								<smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionAndId"/>
 							</smartField:configuration>
@@ -48,16 +48,16 @@
 				</smartForm:Group>
 				<smartForm:Group >
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Value_Points}"/>
+						<smartField:SmartField value="{Value_Points}" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Effort_Points}"/>
+						<smartField:SmartField value="{Effort_Points}" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{ClassifAttribute}"/>
+						<smartField:SmartField value="{ClassifAttribute}" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField value="{Description}">
+						<smartField:SmartField value="{Description}" change="onchangeModelValue">
 							<smartField:configuration>
 								<smartField:Configuration controlType="auto" displayBehaviour="descriptionAndId"/>
 							</smartField:configuration>
@@ -70,8 +70,8 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Submit" type="Default" press="handleSubmit"/>
-				<Button text="Cancel" type="Reject" press="handleCancel"/>
+				<Button text="Submit" type="Default" press="handleSubmit" enabled="{appView>/hasUIChanges}"/>
+				<Button text="Cancel" type="Reject" press="onResetChanges" enabled="{appView>/hasUIChanges}"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

@@ -11,6 +11,43 @@
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SmartTable.annotations.annotation1.ZGW_REQU_I_SRV">
 			<Annotations Target="Metadata.requirement">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Requirement_ID"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Title"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Description"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Status"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Priority"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Owner"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Branch"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Solution"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="OwnerBpName"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Value_Points"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Effort_Points"/>
+						</Record>
+					</Collection>
+				</Annotation>
 				<Annotation Term="UI.SelectionFields">
 					<Collection>
 						<PropertyPath>Solution</PropertyPath>
@@ -32,18 +69,19 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.requirement/Solution">
+				<Annotation Term="Common.Label" String="{@i18n&gt;Solution}"/>
 				<Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
 						<PropertyValue Property="CollectionPath" String="solutionsSet"/>
 						<PropertyValue Property="Parameters">
 							<Collection>
-								<Record Type="Common.ValueListParameterInOut" >
+								<Record Type="Common.ValueListParameterInOut">
 									<PropertyValue Property="LocalDataProperty" PropertyPath="Solution"/>
-									<PropertyValue Property="ValueListProperty" String="SolutionName"  />
+									<PropertyValue Property="ValueListProperty" String="SolutionName"/>
 								</Record>
 								<Record Type="Common.ValueListParameterInOut">
-									<PropertyValue Property="LocalDataProperty" PropertyPath="solutions/SolutionBranch/Branch"/>
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Branch"/>
 									<PropertyValue Property="ValueListProperty" String="Branch"/>
 								</Record>
 							</Collection>
@@ -61,6 +99,7 @@
 								<Record Type="Common.ValueListParameterInOut">
 									<PropertyValue Property="LocalDataProperty" PropertyPath="Priority"/>
 									<PropertyValue Property="ValueListProperty" String="PriorityName"/>
+									<Annotation Term="Common.Label" String="{@i18n&gt;Priority}"/>
 								</Record>
 								<Record Type="Common.ValueListParameterOut">
 									<PropertyValue Property="LocalDataProperty" PropertyPath="Priority_ID"/>
@@ -72,6 +111,7 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.requirement/Status">
+				<Annotation Term="Common.Label" String="{@i18n&gt;Status}"/>
 				<Annotation Term="Common.ValueListWithFixedValues"/>
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
@@ -95,7 +135,102 @@
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
 						<PropertyValue Property="CollectionPath" String="PartnersSet"/>
-						<PropertyValue Property="SearchSupported" Bool="true"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Owner"/>
+									<PropertyValue Property="ValueListProperty" String="FullName"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Owner_BP_No"/>
+									<PropertyValue Property="ValueListProperty" String="Partner"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="OwnerBpName"/>
+									<PropertyValue Property="ValueListProperty" String="LastName"/>
+								</Record>
+							</Collection>
+							<Annotation Term="Common.Label" String="{@i18n&gt;Owner}"/>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.requirement/Title">
+				<Annotation Term="Common.Label" String="{@i18n&gt;Title}"/>
+				<Annotation Term="Common.Text" String="{@i18n&gt;Title}"/>
+			</Annotations>
+			<Annotations Target="Metadata.WorkPackage">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>Id</PropertyPath>
+						<PropertyPath>Title</PropertyPath>
+						<PropertyPath>Description</PropertyPath>
+						<PropertyPath>Owner</PropertyPath>
+						<PropertyPath>Priority</PropertyPath>
+						<PropertyPath>Category</PropertyPath>
+						<PropertyPath>Valuepointf</PropertyPath>
+						<PropertyPath>Value</PropertyPath>
+						<PropertyPath>EFFORT_POINT</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Id"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Title"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="LongDescription"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Owner"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ClassifAttributes"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Priority"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="Category"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="TypeId"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="ProjectPhase"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="RequestedRelease"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="BpExpert"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.WorkPackage/TypeId">
+				<Annotation Term="Common.ValueListWithFixedValues"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="WpTypeSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="TypeId"/>
+									<PropertyValue Property="ValueListProperty" String="Value"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.WorkPackage/Owner">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="PartnersSet"/>
 						<PropertyValue Property="Parameters">
 							<Collection>
 								<Record Type="Common.ValueListParameterInOut">
@@ -103,20 +238,48 @@
 									<PropertyValue Property="ValueListProperty" String="FullName"/>
 								</Record>
 								<Record Type="Common.ValueListParameterInOut">
-									<PropertyValue Property="LocalDataProperty" PropertyPath="Owner_BP_No"/>
+									<PropertyValue Property="LocalDataProperty" PropertyPath="OwnerId"/>
 									<PropertyValue Property="ValueListProperty" String="Partner"/>
-								</Record>
-								<Record Type="Common.ValueListParameterInOut">
-									<PropertyValue Property="LocalDataProperty" PropertyPath="OwnerBpName"/>
-									<PropertyValue Property="ValueListProperty" String="LastName"/>
 								</Record>
 							</Collection>
 						</PropertyValue>
 					</Record>
 				</Annotation>
 			</Annotations>
-			<Annotations Target="Metadata.requirement/Title">
-				<Annotation Term="Common.Text" String="{@i18n&gt;title}"/>
+			<Annotations Target="Metadata.WorkPackage/BpExpert">
+				<Annotation Term="Common.ValueListWithFixedValues"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="PartersSet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="BpExpert"/>
+									<PropertyValue Property="ValueListProperty" String="FullName"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.WorkPackage/Category">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="categorySet"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Category"/>
+									<PropertyValue Property="ValueListProperty" String="Description"/>
+								</Record>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Category"/>
+									<PropertyValue Property="ValueListProperty" String="CatGuid"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>

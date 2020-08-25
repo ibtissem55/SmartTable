@@ -1,5 +1,5 @@
 <ActionSheet id="actionSheet" xmlns="sap.m" xmlns:core="sap.ui.core" core:require="{ MessageToast: 'sap/m/MessageToast' }"
 	title="Choose Your Action" showCancelButton="true" placement="Top">
-	<Button text="{i18n>CreateNew}" icon="sap-icon://add" press="onOpenFormDialog"/>
+	<Button text="{i18n>CreateNewWp}" icon="sap-icon://add" press="onOpenFormDialog"/>
 	<Button text="{i18n>ImportExcel}" icon="sap-icon://excel-attachment" press="onOpenDialog"/>
 </ActionSheet>

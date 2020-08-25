@@ -52,6 +52,7 @@
 		}
 	},
 	"sap.ui5": {
+		"handleValidation": true,
 		"flexEnabled": false,
 		"rootView": {
 			"viewName": "smartTable.SmartTable.view.View1",
@@ -92,11 +93,9 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -111,20 +110,24 @@
 					"target": "notFound"
 				}
 			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "Mtable",
-					"target": [
-						"TargetView1"
-					]
-				},
-				{
-					"pattern": "Add",
-					"name": "add",
-					"target": "Targetadd"
-				}
-			],
+			"routes": [{
+				"pattern": "",
+				"name": "Mtable",
+				"target": [
+					"TargetView1"
+				]
+			}, {
+				"pattern": "Add",
+				"name": "add",
+				"target": "Targetadd"
+			},
+			{
+				"pattern": "Wp",
+				"name": "Wp",
+				"target": [
+					"TargetWp"
+				]
+			}],
 			"targets": {
 				"TargetView1": {
 					"viewType": "XML",
@@ -132,6 +135,14 @@
 					"clearControlAggregation": false,
 					"viewId": "Mtable",
 					"viewName": "Mtable",
+					"viewLevel": 1
+				},
+					"TargetWp": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "Wp",
+					"viewName": "Wp",
 					"viewLevel": 1
 				},
 				"Targetadd": {

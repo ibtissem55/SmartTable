@@ -1,0 +1,71 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:t="sap.ui.table"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:layout="sap.ui.layout" xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:v="sap.ui.comp.variants"
+	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.Wp" height="100%" xmlns:tnt="sap.tnt">
+	<Page id="floatingFooterPage" floatingFooter="true" title="Work Packages Management"
+		class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
+		<customHeader title="Work Packages Management">
+			<tnt:ToolHeader>
+				<Bar>
+					<contentLeft>
+						<OverflowToolbar>
+							<v:VariantManagement id="WpvariantManagement" select=".onOpenWp" save="onSaveVariant" enabled="true" manage="onManageVM"
+								showExecuteOnSelection="false" variantItems="{/variantSet}" showShare="false" class="sapUiMediumMarginTop">
+								<v:variantItems>
+									<v:VariantItem key="{variantID}" text="{variantDesc}" global="true" readOnly="false"/>
+								</v:variantItems>
+							</v:VariantManagement>
+						</OverflowToolbar>
+					</contentLeft>
+					<contentMiddle>
+						<Text text="Work Packages Management"></Text>
+					</contentMiddle>
+				</Bar>
+			</tnt:ToolHeader>
+		</customHeader>
+		<VBox fitContainer="false">
+			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="WorkPackageSet" assignedFiltersChanged="onFiltersChanged"
+			enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true"
+				useProvidedNavigationProperties="true" useToolbar="false">
+				<smartFilterBar:layoutData>
+					<FlexItemData shrinkFactor="0"/>
+				</smartFilterBar:layoutData>
+			</smartFilterBar:SmartFilterBar>
+			<smartTable:SmartTable id="smartTable" entitySet="WorkPackageSet" smartFilterId="smartFilterBar" useTablePersonalisation="true"
+				tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport" showRowCount="true" customData:useSmartField="false" customData:useSmartToggle="true"
+				initialise="onInitialise" editable="true" class="sapUiResponsiveContentPadding" beforeRebindTable="onDataReceived" enableAutoBinding="true" tableBindingPath="oModelMNA>/"
+				editTogglable="true">
+				<smartTable:customToolbar>
+					<OverflowToolbar design="Transparent">
+						<ToolbarSpacer/>
+						<OverflowToolbarButton icon="sap-icon://save"  press="onSave" tooltip="Save"/>
+						<OverflowToolbarButton visible="{appView>/hasInputChanges}" id="doneButton" icon="sap-icon://decline" press="onResetChanges"/>
+					</OverflowToolbar>
+				</smartTable:customToolbar>
+				<t:Table>
+					<t:rowSettingsTemplate>
+						<t:RowSettings  highlight="{= ${appView>/highlight} === true ? 'Success' : ${appView>/highlight} === false ? 'Error' : 'None'}"></t:RowSettings>
+					</t:rowSettingsTemplate>
+				</t:Table>
+			</smartTable:SmartTable>
+		</VBox>
+		<footer>
+			<Bar>
+				<contentRight>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Work Packages" class="sapUiSmallMargin" press=".onButtonPress">
+							<dependents>
+								<core:Fragment fragmentName="smartTable.SmartTable.view.ActionWp" type="XML"/>
+							</dependents>
+						</Button>
+					</OverflowToolbar>
+				</contentRight>
+				<contentLeft>
+					<Button icon="sap-icon://message-popup" type="Transparent" id="popover" text="{= ${message>/}.length }" press="handleSave"/>
+				</contentLeft>
+			</Bar>
+		</footer>
+	</Page>
+</mvc:View>

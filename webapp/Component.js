@@ -8,7 +8,8 @@ sap.ui.define([
 	return UIComponent.extend("smartTable.SmartTable.Component", {
 
 		metadata: {
-			manifest: "json"
+			manifest: "json",
+			 handleValidation  : true
 		},
 
 		/**
