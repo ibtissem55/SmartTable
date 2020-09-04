@@ -19,7 +19,6 @@ sap.ui.define([
 					handleValidation: true
 				}
 			});
-
 			this.oMessageProcessor = new sap.ui.core.message.ControlMessageProcessor();
 
 			sap.ui.getCore().attachValidationError(function (oEvent) {
@@ -29,7 +28,6 @@ sap.ui.define([
 
 				oEvent.getParameter("element").setValueState(ValueState.None);
 			});
-
 			this._oMessageManager = sap.ui.getCore().getMessageManager();
 			//	this._oMessageManager.registerMessageProcessor(this.oMessageProcessor);
 			this._oMessageManager.registerObject(this.getView().byId("smartTab"), true);
@@ -151,6 +149,7 @@ sap.ui.define([
 			this._bTechnicalErrors = false;
 		},
 		handleUploadPress: function (oEvt) {
+				this._setBusy(true);
 			var that = this;
 			var branch = sap.ui.getCore().byId("dialogBranch").getSelectedItem().getText();
 			var solution = sap.ui.getCore().byId("dialogSolution").getSelectedItem().getText();
@@ -227,7 +226,7 @@ sap.ui.define([
 									formatter: that.formatter.reformatText
 								});
 
-							}  else if (sPath === "oModelMNA>Status" || sPath === "oModelMNA>StatusID") {
+							} else if (sPath === "oModelMNA>Status" || sPath === "oModelMNA>StatusID") {
 								aColumns[m].getTemplate().getEdit().setEnabled(false);
 								aColumns[m].getTemplate().getDisplay().bindText(sPath);
 								aColumns[m].getTemplate().getEdit().bindValue(sPath);
@@ -244,6 +243,7 @@ sap.ui.define([
 					this._setUIChanges(true);
 				}
 			}
+				this._setBusy(false);
 		},
 		press: function (oEvent) {
 			var oButton = oEvent.getSource();
@@ -261,7 +261,7 @@ sap.ui.define([
 		},
 
 		fnSuccess: function (data, response) {
-
+			this._setBusy(false);
 			if (this.oModel.hasPendingChanges()) {
 				sap.m.MessageToast.show("Error during creating requirement");
 				this._setHilight(false);
@@ -276,6 +276,7 @@ sap.ui.define([
 
 		},
 		fnError: function (e) {
+			this._setBusy(false);
 			sap.m.MessageToast.show("Error during creating requirement");
 			this._setHilight(false);
 			this._setUIChanges(false);
@@ -582,8 +583,8 @@ sap.ui.define([
 
 				//	var sBindingPath = "/" + oEvt.getParameter("changeEvent").getSource().getId() + "/";
 				if (oEvt.getParameter("changeEvent").getSource().getValue() === "") {
-			//	this.stateSet("Error");
-				oEvt.getParameter("changeEvent").getSource().setValueState(sap.ui.core.ValueState.Error);
+					//	this.stateSet("Error");
+					oEvt.getParameter("changeEvent").getSource().setValueState(sap.ui.core.ValueState.Error);
 					this._setUIChanges(false);
 					this._oMessageManager.addMessages(
 						new Message({
@@ -608,7 +609,7 @@ sap.ui.define([
 				this._setUIChanges(false);
 			} else if (bl === null) {
 				this._setUIChanges(true);
-				//	this.onMessageBindingChange(oEvt);
+
 				this._oMessageManager.removeAllMessages();
 			}
 		}

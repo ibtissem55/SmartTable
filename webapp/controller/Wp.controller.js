@@ -53,7 +53,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 		getRouter: function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
-
+	onEditToggeled: function (oValue) {
+			this._setEdit(oValue.getParameters().editable);
+		},
 		// onListRowSelect: function (oEvent) {
 		// 	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 		// 	var wpPath = oEvent.getParameter("rowContext").getPath(),
@@ -62,6 +64,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 		// 	oRouter.navTo("ScopeItems", {ScopeItems: scope});
 		// },
 		handleUploadPress: function (oEvt) {
+			this._setBusy(true);
 			var that = this;
 			//upload excel file and get json 
 			var oFileUploader = sap.ui.getCore().byId("WpfileUploader");
@@ -131,6 +134,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 					this._setUIChanges(true);
 				}
 			}
+			this._setBusy(false);
 		},
 		handleCloseButton: function (oEvent) {
 			this._oPopover.close();
@@ -176,7 +180,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				table.setBindingContext(oContext);
 			}
 
-			//	this._setBusy(true); // Lock UI until submit is resolved.
+			this._setBusy(true); // Lock UI until submit is resolved.
 			this.oModel.submitChanges({
 				groupId: "addRequ"
 			});
@@ -234,7 +238,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			return Object.assign({}, ...keyValues);
 		},
 		fnSuccess: function (data, response) {
-
+			this._setBusy(false);
 			if (this.oModel.hasPendingChanges()) {
 				sap.m.MessageToast.show("Error during creating Work Packages");
 				this._setHilight(false);
@@ -248,7 +252,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			}
 
 		},
-				_setEdit: function (bValue) {
+		_setEdit: function (bValue) {
 			if (this._bTechnicalErrors) {
 				// If there is currently a technical error, then force 'true'.
 				bValue = false;
@@ -270,8 +274,15 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			this._oPopover.openBy(oButton);
 		},
 		fnError: function (e) {
+			this._setBusy(false);
 			sap.m.MessageToast.show("Error during creating Work Packages");
-			this._setUIChanges(false);
+		//	this._setUIChanges(false);
+			//this._setEdit(false);
+				this._setHilight(false);
+		},
+		_setBusy: function (bIsBusy) {
+			var oModele = this.getView().getModel("appView");
+			oModele.setProperty("/busy", bIsBusy);
 		},
 		renameKeysReverse: function (obj) {
 
@@ -428,7 +439,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			oModele.setProperty("/hasUIChanges", bHasUIChanges);
 		},
 		// this function is to verify the required fields 
-				onInputChange: function (oEvt) {
+		onInputChange: function (oEvt) {
 			if (oEvt.getParameter("escPressed")) {
 				this._setInputChanges();
 			} else {
@@ -437,7 +448,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			}
 			var _value = oEvt.getParameter("changeEvent").getSource().mBindingInfos.value.binding.sPath;
 			if (_value === "Title" || _value === "Priority" || _value === "Status" || _value === "Owner") {
-		
+
 				if (oEvt.getParameter("changeEvent").getSource().getValue() === "") {
 
 					oEvt.getParameter("changeEvent").getSource().setValueState(sap.ui.core.ValueState.Error);
@@ -457,7 +468,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			var bl = null;
 			var b = this.getView().getModel("oModelMNA").getData();
 			for (var i = 0; i < b.length; i++) {
-				if (b[i]["WorkPackageID"] === "" || b[i]["Title"] === "" || b[i]["Owner"] === ""|| b[i]["Classification"] === "") {
+				if (b[i]["WorkPackageID"] === "" || b[i]["Title"] === "" || b[i]["Owner"] === "" || b[i]["Classification"] === "") {
 					bl = false;
 				}
 			}
@@ -469,7 +480,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				this._oMessageManager.removeAllMessages();
 			}
 		},
-				_setInputChanges: function (bHasUIChanges) {
+		_setInputChanges: function (bHasUIChanges) {
 			if (this._bTechnicalErrors) {
 				// If there is currently a technical error, then force 'true'.
 				bHasUIChanges = true;
