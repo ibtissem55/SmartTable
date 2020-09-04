@@ -10,12 +10,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 	RowSettings, MessagePopover, MessageType, Message, Element, MessagePopoverItem, ValueState, formatter) {
 	"use strict";
 
-	return Controller.extend("smartTable.SmartTable.controller.Wp", {
+	return Controller.extend("smartTable.SmartTable.controller.ScopeItems", {
 		formatter: formatter,
 		onInit: function () {
 			this._oMessageManager = sap.ui.getCore().getMessageManager();
 
-			this._oMessageManager.registerObject(this.getView().byId("smartTable"), true);
+			this._oMessageManager.registerObject(this.getView().byId("smartScopeTable"), true);
 			this.getView().setModel(this._oMessageManager.getMessageModel(), "message");
 
 			this.oMessageTemplate = new MessagePopoverItem({
@@ -43,7 +43,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				groupId: "myGroupId",
 				highlight: undefined,
 				editable: true,
-				mandatory: false
+				mandatory: false,
+				enabled: false
 			});
 			this.getView().setModel(oViewModel, "appView");
 			this.oModel = this.getOwnerComponent().getModel();
@@ -54,17 +55,24 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
 
-		// onListRowSelect: function (oEvent) {
-		// 	var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-		// 	var wpPath = oEvent.getParameter("rowContext").getPath(),
-		// 	scope = wpPath.match(/(\d+)/)[0];
+		onListRowSelect: function (oEvent) {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			var wpPath = oEvent.getParameter("rowContext").getPath(),
+				scope = wpPath.match(/(\d+)/)[0];
 
-		// 	oRouter.navTo("ScopeItems", {ScopeItems: scope});
-		// },
+			oRouter.navTo("ScopeItems", {
+				ScopeItems: scope
+			});
+		},
 		handleUploadPress: function (oEvt) {
+
 			var that = this;
-			//upload excel file and get json 
-			var oFileUploader = sap.ui.getCore().byId("WpfileUploader");
+			var itemTitle = sap.ui.getCore().byId("itemTitle");
+			var wpGuid = sap.ui.getCore().byId("dialogScope").getSelectedItem().getKey();
+			var idWp = sap.ui.getCore().byId("dialogBranch");
+			var vPath = "/ScopeTypeSet(WpGuid=uid'" + wpGuid.toString() + "')";
+
+			var oFileUploader = sap.ui.getCore().byId("WifileUploader");
 			oFileUploader.upload();
 			if (!oFileUploader.getValue()) {
 				MessageToast.show("choose a file first");
@@ -103,21 +111,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 						that.datacopy = JSON.parse(JSON.stringify(json));
 						that.getView().setModel(oModelMNA, "oModelMNA");
 
-						var aColumns = that.getView().byId("smartTable").getTable().getColumns();
+						var aColumns = that.getView().byId("smartScopeTable").getTable().getColumns();
 						var oValue;
 						//	var key;
-
 						for (var m = 0; m < aColumns.length; m++) {
 							var val = aColumns[m].data("p13nData").columnKey;
 							var valeur = that.renameKeysReverse(val);
 							var sPath = "oModelMNA>" + valeur;
-							if (sPath === "oModelMNA>Long Description") {
-								var input = aColumns[m].getTemplate().getItems()[0];
-								input.bindValue({
-									path: sPath,
-									formatter: that.formatter.reformatText
-								});
-
+				
+							if (sPath === "oModelMNA>Work Item Classification") {
+							aColumns[m].getTemplate().getList().bindElement(sPath);
 							} else {
 								aColumns[m].getTemplate().getDisplay().bindText(sPath);
 								aColumns[m].getTemplate().getEdit().bindValue(sPath);
@@ -131,14 +134,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 					this._setUIChanges(true);
 				}
 			}
+
 		},
 		handleCloseButton: function (oEvent) {
 			this._oPopover.close();
 		},
 		onSaveDescr: function (oEvent) {
-
 			this._oPopover.close();
-
 		},
 		_setHilight: function (bHilight) {
 
@@ -152,12 +154,19 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			oModele.setProperty("/highlight", bHilight);
 
 		},
+		enabledValue: function (bEnabled) {
+			if (bEnabled === undefined) {
+				bEnabled = true;
+			}
+			var oModele = this.getView().getModel("appView");
+			oModele.setProperty("/enabled", bEnabled);
+		},
 		onSave: function () {
 			var j;
-			var table = this.byId("smartTable");
+			var table = this.byId("smartScopeTable");
 			var d = this.getView().getModel("oModelMNA").getData();
 
-			var oContext = new sap.ui.model.Context(this.oModel, "/WorkPackageSet");
+			var oContext = new sap.ui.model.Context(this.oModel, "/ScopeItemsSet");
 			this.oModel.setDeferredGroups(["addRequ"]);
 			for (var i = 0; i < d.length; i++) {
 				delete d[i]['ClassifAttributes - Component name'];
@@ -167,7 +176,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				delete d[i]['Title'];
 				delete d[i]['Owner'];
 				j = this.renameKeys(d[i]);
-				oContext = this.oModel.createEntry("/WorkPackageSet", {
+				oContext = this.oModel.createEntry("/ScopeItemsSet", {
 					properties: j,
 					changeSetId: "changeset " + i,
 					error: this.fnError.bind(this),
@@ -176,7 +185,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				table.setBindingContext(oContext);
 			}
 
-			//	this._setBusy(true); // Lock UI until submit is resolved.
 			this.oModel.submitChanges({
 				groupId: "addRequ"
 			});
@@ -188,42 +196,16 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 		},
 		renameKeys: function (obj) {
 			var newKeys = {
-				'Work Package ID': "Id",
-				'Text': 'Value',
-				'Created By': "Created_By",
-				'Actual Release': "ActualRelease",
-				'Long Description': "LongDescription",
-				'Value Points': "ValuePoint",
-				'Effort Points': "EFFORT_POINT",
+				'Type ID': "WpType",
+				'Comment for Work Item': 'Text',
+				'Title': "WpDescription",
+
 				'DESCRIPTION': "Description",
-				'Requirement GUID': "REQUIREMENT_GUID",
+				'Productive System': "WpSystem",
 				'GUID': "Guid",
-				'Transaction Last Changed Time': "ChangedAt",
-				'Changed By': "ChangedBy",
-				'Time of transaction creation': "CreatedAt",
-				'Document Type': "TypeId",
-				'Element ID': "Element_ID",
-				'Status': "Status",
-				'Status Text': "StatusText",
-				'PRIORITY': "Priority",
-				'Owner ID': "OwnerId",
-				'Solution ID': "Solution_ID",
-				'Branch ID': "Branch_ID",
-				'Priority ID': "Priority_ID",
-				'Priority Text': "PriorityText",
-				'Project Phase Guid': "ProjectPhase",
-				'Project Phase': "ProjectPhaseText",
-				'Dev Team': "DevTeam",
-				'Requirements Team ID': "RequirementsteamId",
-				'Requested Release': "RequestedRelease",
-				'List of assigned requirements Id': "RequirementMsg",
-				'Requirements Team': "Requirementsteam",
-				'BP Expert Name': "Business_Process_Expert_Name",
-				'Project Name': "Project",
-				'Project Guid': "ProjectGuid",
-				'RELEASE_NUMBER': "ReleaseNumber",
-				'WRICEF_STRING': "WricefString",
-				'Planned Project': "PlannedProject"
+				'Work Item Classification': "Wricef",
+				'Wp Status': "WpStatus",
+
 			};
 			var keyValues = Object.keys(obj).map(key => {
 				const newKey = newKeys[key] || key;
@@ -236,11 +218,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 		fnSuccess: function (data, response) {
 
 			if (this.oModel.hasPendingChanges()) {
-				sap.m.MessageToast.show("Error during creating Work Packages");
+				sap.m.MessageToast.show("Error during creating Work Items");
 				this._setHilight(false);
 			} else {
-				this.getView().byId("smartTable").setEditable(false);
-				sap.m.MessageToast.show("Your Work Packages are created successfully as Stand alone");
+				this.getView().byId("smartScopeTable").setEditable(false);
+				sap.m.MessageToast.show("Your Work Items are created successfully as Scopes");
 				this._setHilight(true);
 				this._setUIChanges(false);
 				this._setEdit(false);
@@ -248,54 +230,35 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			}
 
 		},
-				_setEdit: function (bValue) {
-			if (this._bTechnicalErrors) {
-				// If there is currently a technical error, then force 'true'.
-				bValue = false;
-			} else if (bValue === undefined) {
-				bValue = !this.getView().getModel().hasPendingChanges();
-			}
-			var oModele = this.getView().getModel("appView");
-			oModele.setProperty("/editable", bValue);
-		},
-		press: function (oEvent) {
 
-			var oButton = oEvent.getSource();
-			if (!this._oPopover) {
-				this._oPopover = sap.ui.xmlfragment("fragmentId", "smartTable.SmartTable.view.WpRichText", this);
-			}
-			this.getView().addDependent(this._oPopover);
-			var oContext = oEvent.getSource().getBindingContext("oModelMNA");
-			this._oPopover.setBindingContext(oContext, "oModelMNA");
-			this._oPopover.openBy(oButton);
-		},
 		fnError: function (e) {
-			sap.m.MessageToast.show("Error during creating Work Packages");
+			sap.m.MessageToast.show("Error during creating Work Items");
 			this._setUIChanges(false);
 		},
 		renameKeysReverse: function (obj) {
 
 			switch (obj) {
-			case 'Id':
-				obj = "Work Package ID";
+			case 'WpType':
+				obj = "Type ID";
 				break;
-			case "CreatedBy":
-				obj = 'Time of transaction creation';
+			case "WpDescription":
+				obj = 'Title';
 				break;
-			case "Effortpoint":
-				obj = 'Effort Points';
+				case "Type":
+				obj = 'Type';
 				break;
-			case "Valuepoint":
-				obj = 'Value Points';
+			case "WpSystem":
+				obj = 'Productive System';
 				break;
-			case "TypeId":
-				obj = 'Document Type';
+			case "Wricef":
+				obj = 'Work Item Classification';
 				break;
-			case "ActualRelease":
-				obj = 'Actual Release';
+			case "WpStatus":
+				obj = 'Wp Status';
 				break;
-			case "Guid":
-				obj = 'GUID';
+
+			case "Text":
+				obj = 'Comment for Work Item';
 				break;
 			case "ChangedAt":
 				obj = 'Transaction Last Changed Time';
@@ -312,47 +275,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			case "StatusText":
 				obj = 'Status Text';
 				break;
-			case "Status_ID":
-				obj = 'Status ID';
-				break;
-			case "Priority":
-				obj = 'PRIORITY';
-				break;
-			case "OwnerId":
-				obj = 'Owner ID';
-				break;
-			case "Requirementsteam":
-				obj = 'Requirements Team';
-				break;
-			case "RequirementMsg":
-				obj = 'List of assigned requirements Id';
-				break;
+
 			case "WricefString":
 				obj = 'WRICEF_STRING';
-				break;
-			case "RequirementsteamId":
-				obj = 'Requirements Team ID';
-				break;
-			case "CategoryGUID":
-				obj = 'Category GUID';
-				break;
-			case "RequestedRelease":
-				obj = 'Requested Release';
-				break;
-			case "BpExpertId":
-				obj = 'BP Expert No';
-				break;
-			case "LongDescription":
-				obj = 'Long Description';
-				break;
-			case "ProjectPhaseText":
-				obj = 'Project Phase';
-				break;
-			case "PriorityText":
-				obj = 'Priority Text';
-				break;
-			case "Text":
-				obj = 'Value';
 				break;
 			default:
 				obj = obj;
@@ -370,9 +295,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 		onOpenWp: function (oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var source = oEvent.getParameter("key");
-			if (source === "03") {
-				oRouter.navTo("ScopeItems");
-			} else if (source === "01") {
+			if (source === "01") {
 
 				oRouter.navTo("Wp");
 
@@ -403,7 +326,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 
 		_getDialog: function () {
 			if (!this._oDialog) {
-				this._oDialog = sap.ui.xmlfragment("smartTable.SmartTable.view.WpDialog", this);
+				this._oDialog = sap.ui.xmlfragment("smartTable.SmartTable.view.ScopeDialog", this);
 				this.getView().addDependent(this._oDialog);
 			}
 			return this._oDialog;
@@ -413,7 +336,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			var aColumns = this.oTable.getColumns();
 
 			for (var m = 0; m < aColumns.length; m++) {
-				aColumns[m].setWidth("150px");
+				aColumns[m].setWidth("250px");
 			}
 
 		},
@@ -427,7 +350,24 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			var oModele = this.getView().getModel("appView");
 			oModele.setProperty("/hasUIChanges", bHasUIChanges);
 		},
-		// this function is to verify the required fields 
+		changeScope: function (oEvent) {
+			var WpValue = oEvent.getParameter("selectedItem").getAdditionalText();
+
+			if (WpValue !== "Scoping") {
+				sap.m.MessageBox.error("Choose a Scoping Work Package", {
+					title: "Error", // default
+					onClose: null, // default
+					styleClass: "", // default
+					actions: sap.m.MessageBox.Action.Close, // default
+					emphasizedAction: null, // default
+					initialFocus: null, // default
+					textDirection: sap.ui.core.TextDirection.Inherit // default
+				});
+			} else {
+				this.enabledValue(true);
+			}
+
+		},
 				onInputChange: function (oEvt) {
 			if (oEvt.getParameter("escPressed")) {
 				this._setInputChanges();
@@ -436,8 +376,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				this._setUIChanges(true);
 			}
 			var _value = oEvt.getParameter("changeEvent").getSource().mBindingInfos.value.binding.sPath;
-			if (_value === "Title" || _value === "Priority" || _value === "Status" || _value === "Owner") {
-		
+			if (_value === "Title" || _value === "Type" || _value === "Wricef") {
+				//	this.checkInputConstraints(oEvt);
+				//	this.handleRequiredField(oEvt);
+
+				//	var sBindingPath = "/" + oEvt.getParameter("changeEvent").getSource().getId() + "/";
 				if (oEvt.getParameter("changeEvent").getSource().getValue() === "") {
 
 					oEvt.getParameter("changeEvent").getSource().setValueState(sap.ui.core.ValueState.Error);
@@ -457,7 +400,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			var bl = null;
 			var b = this.getView().getModel("oModelMNA").getData();
 			for (var i = 0; i < b.length; i++) {
-				if (b[i]["WorkPackageID"] === "" || b[i]["Title"] === "" || b[i]["Owner"] === ""|| b[i]["Classification"] === "") {
+				if (b[i]["Title"] === "" || b[i]["Type"] === "" || b[i]["Wricef"] === "") {
 					bl = false;
 				}
 			}
@@ -465,7 +408,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 				this._setUIChanges(false);
 			} else if (bl === null) {
 				this._setUIChanges(true);
-				//	this.onMessageBindingChange(oEvt);
+			
 				this._oMessageManager.removeAllMessages();
 			}
 		},
@@ -480,5 +423,4 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/m/Text", "sap/ui/model/json/JS
 			oModele.setProperty("/hasInputChanges", bHasUIChanges);
 		}
 	});
-
 });

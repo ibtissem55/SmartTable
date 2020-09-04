@@ -13,7 +13,7 @@
 						<smartField:SmartField value="{Priority}"  mandatory="true" change="onchangeModelValue"/>
 					</smartForm:GroupElement>
 					<smartForm:GroupElement>
-						<smartField:SmartField showValueHelp="true" id="status" value="{Status}" mandatory="true" change="onchangeModelValue">
+						<smartField:SmartField showValueHelp="true" id="status" enabled="false" value="{Status}" mandatory="true" change="onchangeModelValue">
 						<smartField:configuration>
 							<smartField:Configuration controlType="auto" displayBehaviour="descriptionOnly"/>
 						</smartField:configuration>
@@ -64,7 +64,7 @@
 						</smartField:SmartField>
 					</smartForm:GroupElement>
 				</smartForm:Group>
-				<!--<UploadCollection multiple="true"></UploadCollection>-->
+			
 			</smartForm:SmartForm>
 		</VBox>
 		<footer>

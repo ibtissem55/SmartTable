@@ -120,12 +120,17 @@
 				"pattern": "Add",
 				"name": "add",
 				"target": "Targetadd"
-			},
-			{
+			}, {
 				"pattern": "Wp",
 				"name": "Wp",
 				"target": [
 					"TargetWp"
+				]
+			}, {
+				"pattern": "ScopeItems",
+				"name": "ScopeItems",
+				"target": [
+					"TargetScope"
 				]
 			}],
 			"targets": {
@@ -137,7 +142,8 @@
 					"viewName": "Mtable",
 					"viewLevel": 1
 				},
-					"TargetWp": {
+			
+				"TargetWp": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
@@ -154,6 +160,14 @@
 					"viewId": "notFound",
 					"viewName": "NotFound",
 					"transition": "show"
+				},	
+				"TargetScope": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "ScopeItems",
+					"viewName": "ScopeItems",
+					"viewLevel": 1
 				}
 			}
 		}

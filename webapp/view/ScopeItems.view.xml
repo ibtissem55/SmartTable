@@ -2,7 +2,7 @@
 	xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:t="sap.ui.table"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:layout="sap.ui.layout" xmlns:f="sap.f"
 	xmlns:fb="sap.ui.comp.filterbar" xmlns:smartVariantManagement="sap.ui.comp.smartvariants" xmlns:v="sap.ui.comp.variants"
-	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.Wp" height="100%" xmlns:tnt="sap.tnt">
+	xmlns:smartTable="sap.ui.comp.smarttable" controllerName="smartTable.SmartTable.controller.ScopeItems" height="100%" xmlns:tnt="sap.tnt">
 	<Page id="floatingFooterPage" floatingFooter="true" title="Work Packages Management"
 		class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiResponsivePadding--floatingFooter">
 		<customHeader title="Work Packages Management">
@@ -10,7 +10,7 @@
 				<Bar>
 					<contentLeft>
 						<OverflowToolbar>
-							<v:VariantManagement id="WpvariantManagement" select=".onOpenWp" save="onSaveVariant" enabled="true" manage="onManageVM"
+							<v:VariantManagement id="ScopeVariantManagement" select=".onOpenWp" save="onSaveVariant" enabled="true" manage="onManageVM"
 								showExecuteOnSelection="false" variantItems="{/variantSet}" showShare="false" class="sapUiMediumMarginTop">
 								<v:variantItems>
 									<v:VariantItem key="{variantID}" text="{variantDesc}" global="true" readOnly="false"/>
@@ -25,47 +25,23 @@
 			</tnt:ToolHeader>
 		</customHeader>
 		<VBox fitContainer="false">
-			<smartFilterBar:SmartFilterBar id="WpSmartFilterBar" entitySet="WorkPackageSet" assignedFiltersChanged="onFiltersChanged"
-			enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true"
-				useProvidedNavigationProperties="true" useToolbar="false">
+			<smartFilterBar:SmartFilterBar id="scopeSmartFilterBar" entitySet="ScopeItemsSet" assignedFiltersChanged="onFiltersChanged"
+				enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true" useProvidedNavigationProperties="true" useToolbar="false">
 				<smartFilterBar:layoutData>
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
-	
-		
-					<smartTable:SmartTable id="smartTable" entitySet="WorkPackageSet" smartFilterId="WpSmartFilterBar" useTablePersonalisation="true"
-				tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport" showRowCount="true" customData:useSmartField="false" customData:useSmartToggle="true"
-				initialise="onInitialise" editable="true" class="sapUiResponsiveContentPadding"  fieldChange="onInputChange" beforeRebindTable="onDataReceived" enableAutoBinding="true" tableBindingPath="oModelMNA>/"
-				editTogglable="true">
+			<smartTable:SmartTable id="smartScopeTable" entitySet="ScopeItemsSet" smartFilterId="ScopeSmartFilterBar" useTablePersonalisation="true"
+				tableType="Table" useExportToExcel="true" beforeExport="onBeforeExport" showRowCount="true" customData:useSmartField="false"
+				customData:useSmartToggle="true" initialise="onInitialise" editable="true" fieldChange="onInputChange" class="sapUiResponsiveContentPadding"
+				beforeRebindTable="onDataReceived" enableAutoBinding="true" tableBindingPath="oModelMNA>/" editTogglable="true">
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>
 						<OverflowToolbarButton icon="sap-icon://save" visible="{appView>/hasUIChanges}" press="onSave" tooltip="Save"/>
-				</OverflowToolbar>
+					</OverflowToolbar>
 				</smartTable:customToolbar>
-			<t:Table selectionMode="Single">
-					<t:columns>
-						<t:Column id="LongDescription" width="100px" hAlign="Begin">
-							<t:customData>
-								<core:CustomData key="p13nData" value='\{"columnKey": "LongDescription","columnIndex":"4","leadingProperty": "LongDescription","type": "text"}'/>
-							</t:customData>
-							<Label text="Description"/>
-							<t:template>
-								<HBox fitContainer="true" alignItems="Stretch">
-									<layoutData>
-										<FlexItemData growFactor="3"/>
-									</layoutData>
-									<Input id="descInput" textFormatMode="KeyValue" editable="{appView>/editable}">
-										<suggestionItems>
-											<core:ListItem key="{Id}" text="{path='LongDescription'}"  additionalText="{LongDescription}"/>
-										</suggestionItems>
-									</Input>
-									<Button id="buttondesc" press="press" icon="sap-icon://text-formatting" visible="{appView>/editable}"/>
-								</HBox>
-							</t:template>
-						</t:Column>
-					</t:columns>
+				<t:Table selectionMode="Single">
 					<t:rowSettingsTemplate>
 						<t:RowSettings highlight="{= ${appView>/highlight} === true ? 'Success' : ${appView>/highlight} === false ? 'Error' : 'None'}"></t:RowSettings>
 					</t:rowSettingsTemplate>
@@ -77,7 +53,7 @@
 				<contentRight>
 					<OverflowToolbar>
 						<ToolbarSpacer/>
-						<Button text="Work Packages" class="sapUiSmallMargin" press=".onButtonPress">
+						<Button text="Work Items" class="sapUiSmallMargin" press=".onButtonPress">
 							<dependents>
 								<core:Fragment fragmentName="smartTable.SmartTable.view.ActionWp" type="XML"/>
 							</dependents>

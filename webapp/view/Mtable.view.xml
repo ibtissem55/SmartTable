@@ -17,13 +17,6 @@
 									<v:VariantItem key="{variantID}" text="{variantDesc}" global="true" readOnly="false"/>
 								</v:variantItems>
 							</v:VariantManagement>
-							<!--				<smartVariantManagement:SmartVariantManagement id="__SVM01" persistencyKey="PageVariantPKey" showShare="true" showExecuteOnSelection="true"-->
-							<!--					entitySet="requirementSet">-->
-							<!--				<v:variantItems>-->
-							<!--	<v:VariantItem text="My Global Variant" key="MGV" global="true" readOnly="false" lifecyclePackage="$TMP"/>-->
-							<!--	<v:VariantItem text="My Better Variant" key="MBV" global="false" readOnly="false" lifecyclePackage="$TMP"/>-->
-							<!--</v:variantItems>-->
-							<!--				</smartVariantManagement:SmartVariantManagement>-->
 						</OverflowToolbar>
 					</contentLeft>
 					<contentMiddle>
@@ -36,21 +29,6 @@
 			<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="requirementSet" assignedFiltersChanged="onFiltersChanged"
 				considerSelectionVariants="true" enableBasicSearch="true" basicSearchFieldName="Solution" showClearButton="true"
 				useProvidedNavigationProperties="true" smartVariant="variantManagement" useToolbar="false">
-				<!--<smartFilterBar:controlConfiguration>-->
-				<!--	<smartFilterBar:ControlConfiguration key="CustomFilterField" index="1" label="Solution" groupId="_BASIC" width="300px"-->
-				<!--		visibleInAdvancedArea="true">-->
-				<!--		<smartFilterBar:customControl>-->
-				<!--			<Select id="selectSolution" forceSelection="false" selectedKey="{SolutionId}" items="{/requirementSet}">-->
-				<!--				<core:Item key="{SolutionName}" text="{SolutionName}"/>-->
-				<!--			</Select>-->
-				<!--				</smartFilterBar:customControl>-->
-				<!--		<smartFilterBar:customControl>	<Select id="selectBranch" forceSelection="false" selectedKey="{BranchId}" items="{/requirementSet}">-->
-				<!--				<core:Item key="{BranchName}" text="{BranchName}"/>-->
-				<!--			</Select>-->
-				<!--		</smartFilterBar:customControl>-->
-				<!--	</smartFilterBar:ControlConfiguration>-->
-				<!--</smartFilterBar:controlConfiguration>-->
-				<!--layout data used to make the table growing but the filter bar fixed -->
 				<smartFilterBar:layoutData>
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
@@ -60,34 +38,30 @@
 				smartVariant="variantManagement" customData:useSmartField="false" customData:useSmartToggle="true" fieldChange="onInputChange"
 				editable="true" class="sapUiResponsiveContentPadding" enableAutoBinding="true" tableBindingPath="oModelMNA>/" editTogglable="true"
 				editToggled="onEditToggeled">
-				<!--<smartTable:layoutData>-->
-				<!--	<FlexItemData growFactor="1" baseSize="0%"/>-->
-				<!--</smartTable:layoutData>-->
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>
 						<OverflowToolbarButton icon="sap-icon://save" visible="{appView>/hasUIChanges}" press="onSave" tooltip="Save"/>
-						<OverflowToolbarButton visible="{appView>/hasInputChanges}" id="doneButton" icon="sap-icon://decline" press="onResetChanges"/>
 					</OverflowToolbar>
 				</smartTable:customToolbar>
-				<t:Table>
+				<t:Table selectionMode="Single">
 					<t:columns>
 						<t:Column id="Description" width="100px" hAlign="Begin">
 							<t:customData>
 								<core:CustomData key="p13nData" value='\{"columnKey": "Description","columnIndex":"4","leadingProperty": "Description","type": "text"}'/>
 							</t:customData>
 							<Label text="Description"/>
-							<t:template>
+							<t:template >
 								<HBox fitContainer="true" alignItems="Stretch">
 									<layoutData>
 										<FlexItemData growFactor="3"/>
 									</layoutData>
 									<Input id="descInput" textFormatMode="KeyValue" editable="{appView>/editable}">
 										<suggestionItems>
-											<core:ListItem key="{RequirementID}" text="{Description}" additionalText="{Description}"/>
+											<core:ListItem key="{RequirementID}" text="{path='Description' formatter ='.formatter.deleteAdditionaltext'}" additionalText="{Description}"/>
 										</suggestionItems>
 									</Input>
-									<Button id="buttondesc" press="press" icon="sap-icon://text-formatting" formatter='' visible="{appView>/editable}"/>
+									<Button id="buttondesc" press="press" icon="sap-icon://text-formatting" visible="{appView>/editable}"/>
 								</HBox>
 							</t:template>
 						</t:Column>
@@ -103,11 +77,6 @@
 				<contentRight>
 					<OverflowToolbar>
 						<ToolbarSpacer/>
-						<Button text="Work Package" class="sapUiSmallMargin" press=".onWorkPCackagePress">
-							<dependents>
-								<core:Fragment fragmentName="smartTable.SmartTable.view.WpAction" type="XML"/>
-							</dependents>
-						</Button>
 						<Button text="Requirements" class="sapUiSmallMargin" press=".onButtonPress">
 							<dependents>
 								<core:Fragment fragmentName="smartTable.SmartTable.view.Action" type="XML"/>

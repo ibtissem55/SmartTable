@@ -5,10 +5,11 @@ sap.ui.define([], function () {
 	reformatText:function(ovalue){
 
 		if(ovalue!==null){
+			ovalue.replace("&nbsp;", '');
 		return ovalue.replace(/<(.|\n)*?>/g, '');
 	}},
 	deleteAdditionaltext:function(ovalue){
-		debugger
+		
 			if(ovalue!==null){
 		 return ovalue.replace("&nbsp;", '');
 	}

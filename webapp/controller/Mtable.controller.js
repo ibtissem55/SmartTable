@@ -13,20 +13,25 @@ sap.ui.define([
 	return Controller.extend("smartTable.SmartTable.controller.Mtable", {
 		formatter: formatter,
 		onInit: function () {
-			sap.ui.getCore().attachValidationError(function (oEvent) {
-
-				oEvent.getParameter("element").setValueState(ValueState.Error);
-
+			sap.ui.core.UIComponent.extend("MyComponent", {
+				metadata: {
+					version: "1.0",
+					handleValidation: true
+				}
 			});
 
+			this.oMessageProcessor = new sap.ui.core.message.ControlMessageProcessor();
+
+			sap.ui.getCore().attachValidationError(function (oEvent) {
+				oEvent.getParameter("element").setValueState(ValueState.Error);
+			});
 			sap.ui.getCore().attachValidationSuccess(function (oEvent) {
 
 				oEvent.getParameter("element").setValueState(ValueState.None);
-
 			});
 
 			this._oMessageManager = sap.ui.getCore().getMessageManager();
-
+			//	this._oMessageManager.registerMessageProcessor(this.oMessageProcessor);
 			this._oMessageManager.registerObject(this.getView().byId("smartTab"), true);
 			this.getView().setModel(this._oMessageManager.getMessageModel(), "message");
 
@@ -57,7 +62,8 @@ sap.ui.define([
 				groupId: "myGroupId",
 				buttonV: true,
 				highlight: undefined,
-				editable: true
+				editable: true,
+				state: 'None'
 
 			});
 			this.getView().setModel(oViewModel, "appView");
@@ -69,7 +75,9 @@ sap.ui.define([
 		 * Event handler when the add button gets pressed
 		 * @public
 		 */
+		// onChangeInput: function (event) {
 
+		// },
 		onOpenFormDialog: function () {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("add");
@@ -98,9 +106,7 @@ sap.ui.define([
 		},
 		onEditToggeled: function (oValue) {
 			this._setEdit(oValue.getParameters().editable);
-
 		},
-
 		onSave: function () {
 			var j;
 			var table = this.byId("smartTab");
@@ -121,6 +127,9 @@ sap.ui.define([
 				delete d[i]['Category - Description'];
 				delete d[i]['Category - Editability'];
 				delete d[i]['Category - Editability'];
+				delete d[i]['Priority ID'];
+
+				delete d[i]['Boolean Variable (X=True, -=False, Space=Unknown)'];
 
 				j = this.renameKeys(d[i]);
 				oContext = this.oModel.createEntry("/requirementSet", {
@@ -131,7 +140,6 @@ sap.ui.define([
 				});
 				table.setBindingContext(oContext);
 			}
-			debugger;
 
 			this._setBusy(true); // Lock UI until submit is resolved.
 
@@ -210,6 +218,7 @@ sap.ui.define([
 							var val = aColumns[m].data("p13nData").columnKey;
 							var valeur = that.renameKeysReverse(val);
 							var sPath = "oModelMNA>" + valeur;
+
 							//	oValue = aColumns[m].getTemplate().getEdit().bindValue(sPath);
 							if (sPath === "oModelMNA>Description") {
 								var input = aColumns[m].getTemplate().getItems()[0];
@@ -218,16 +227,7 @@ sap.ui.define([
 									formatter: that.formatter.reformatText
 								});
 
-							} else if (sPath === "oModelMNA>Title") {
-
-								aColumns[m].getTemplate().getDisplay().bindText(sPath);
-								aColumns[m].getTemplate().getEdit().bindValue({
-									path: sPath,
-									constraints: {
-										maximum: 10
-									}
-								});
-							} else if (sPath === "oModelMNA>Status" || sPath === "oModelMNA>StatusID") {
+							}  else if (sPath === "oModelMNA>Status" || sPath === "oModelMNA>StatusID") {
 								aColumns[m].getTemplate().getEdit().setEnabled(false);
 								aColumns[m].getTemplate().getDisplay().bindText(sPath);
 								aColumns[m].getTemplate().getEdit().bindValue(sPath);
@@ -256,7 +256,6 @@ sap.ui.define([
 			this._oPopover.openBy(oButton);
 		},
 		getEdit: function () {
-
 			var oModele = this.getView().getModel("appView");
 			return oModele.getProperty("/editable");
 		},
@@ -284,15 +283,19 @@ sap.ui.define([
 		onOpenWp: function (oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var source = oEvent.getParameter("key");
-			if (source === "01") {
+
+			if (source === "03") {
+				oRouter.navTo("ScopeItems");
+				sap.ui.getCore().getMessageManager().removeAllMessages();
+			} else if (source === "01") {
 
 				oRouter.navTo("Wp");
+				sap.ui.getCore().getMessageManager().removeAllMessages();
 
 			} else {
 				oRouter.navTo("Mtable");
 			}
 		},
-
 		handleSave: function (oEvent) {
 
 			this.oMessagePopover.openBy(oEvent.getSource());
@@ -306,7 +309,6 @@ sap.ui.define([
 			for (var m = 0; m < aColumns.length; m++) {
 				aColumns[m].setWidth("150px");
 			}
-
 		},
 		renameKeysReverse: function (obj) {
 
@@ -526,7 +528,6 @@ sap.ui.define([
 							initialFocus: null, // default
 							textDirection: sap.ui.core.TextDirection.Inherit // default
 						});
-
 						return;
 					}
 				}
@@ -546,7 +547,6 @@ sap.ui.define([
 			var oModele = this.getView().getModel("appView");
 			oModele.setProperty("/hasUIChanges", bHasUIChanges);
 		},
-
 		_setInputChanges: function (bHasUIChanges) {
 			if (this._bTechnicalErrors) {
 				// If there is currently a technical error, then force 'true'.
@@ -569,90 +569,48 @@ sap.ui.define([
 			}
 		},
 		onInputChange: function (oEvt) {
-			var oInput = oEvt.getSource();
-
 			if (oEvt.getParameter("escPressed")) {
 				this._setInputChanges();
 			} else {
 				this._setInputChanges(true);
 				this._setUIChanges(true);
 			}
+			var _value = oEvt.getParameter("changeEvent").getSource().mBindingInfos.value.binding.sPath;
+			if (_value === "Title" || _value === "Priority" || _value === "Status" || _value === "Owner") {
+				//	this.checkInputConstraints(oEvt);
+				//	this.handleRequiredField(oEvt);
 
-			if (oEvt.getSource()._aColumnKeys[1] === "Title") {
-				this.checkInputConstraints(oEvt);
-				this.handleRequiredField(oEvt);
-			}
-		},
-		handleRequiredField: function (oInput) {
-
-			if (!oInput.getValue()) {
-				this._MessageManager.addMessages(
-					new Message({
-						message: "A mandatory field is required",
-						type: sap.ui.core.MessageType.Error,
-						additionalText: oInput.getLabels()[0].getText(),
-
-						processor: this.getView().getModel()
-					})
-				);
-			}
-		},
-		checkInputConstraints: function (oInput) {
-			var oBinding = oInput.getParameters().changeEvent.oSource.mBindingInfos.value,
-				sValueState = "None";
-
-			//this.removeMessageFromTarget(sTarget);
-
-			try {
-				oBinding.getType().validateValue(oInput.getValue());
-			} catch (oException) {
-				sValueState = "Error";
-				this._oMessageManager.addMessages(
-					new Message({
-						message: "The value should not exceed 100",
-						type: sap.ui.core.MessageType.Error,
-						additionalText: oInput.getSource()._aColumnKeys[1],
-						description: "The value should not exceed 10",
-
-						processor: this.getView().getModel()
-					})
-				);
-
-			}
-
-			oInput.setValueState(sValueState);
-		},
-
-		onMessageBindingChange: function (oEvent) {
-			var aContexts = oEvent.getSource().getContexts(),
-				aMessages,
-				bMessageOpen = false;
-
-			if (bMessageOpen || !aContexts.length) {
-				return;
-			}
-			// Extract and remove the technical messages
-			aMessages = aContexts.map(function (oContext) {
-				return oContext.getObject();
-			});
-			sap.ui.getCore().getMessageManager().removeMessages(aMessages);
-
-			this._setUIChanges(true);
-			this._bTechnicalErrors = true;
-			MessageBox.error(aMessages[0].message, {
-				id: "serviceErrorMessageBox",
-				onClose: function () {
-					bMessageOpen = false;
+				//	var sBindingPath = "/" + oEvt.getParameter("changeEvent").getSource().getId() + "/";
+				if (oEvt.getParameter("changeEvent").getSource().getValue() === "") {
+			//	this.stateSet("Error");
+				oEvt.getParameter("changeEvent").getSource().setValueState(sap.ui.core.ValueState.Error);
+					this._setUIChanges(false);
+					this._oMessageManager.addMessages(
+						new Message({
+							message: "A mandatory field is empty",
+							type: sap.ui.core.MessageType.Error,
+							//	additionalText: oInput.getLabels()[0].getText(),
+							processor: this.oMessageProcessor
+						})
+					);
+				} else if (oEvt.getParameter("changeEvent").getSource().getValue() !== "") {
+					oEvt.getParameter("changeEvent").getSource().setValueState(sap.ui.core.ValueState.None);
 				}
-			});
-			bMessageOpen = true;
-		},
-		onResetChanges: function () {
-			var copy = JSON.parse(JSON.stringify(this.datacopy));
-			this.getView().getModel("oModelMNA").setData(copy);
-			//	this.oTable.unbindRows();
-			this._bTechnicalErrors = false;
-			this._setInputChanges(false);
+			}
+			var bl = null;
+			var b = this.getView().getModel("oModelMNA").getData();
+			for (var i = 0; i < b.length; i++) {
+				if (b[i]["Title"] === "" || b[i]["Priority"] === "" || b[i]["Owner"] === "") {
+					bl = false;
+				}
+			}
+			if (bl === false) {
+				this._setUIChanges(false);
+			} else if (bl === null) {
+				this._setUIChanges(true);
+				//	this.onMessageBindingChange(oEvt);
+				this._oMessageManager.removeAllMessages();
+			}
 		}
 	});
 });

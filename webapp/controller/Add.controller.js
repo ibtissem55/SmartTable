@@ -7,11 +7,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 	return Controller.extend("smartTable.SmartTable.controller.Add", {
 
 		onInit: function () {
-
 			var oProperties = {
 				Status: "Draft"
 			};
-
 			var oViewModel = new sap.ui.model.json.JSONModel({
 				hasUIChanges: false
 			});
@@ -45,27 +43,15 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 		handleSubmit: function (oEvent) {
-
 			this.oModel.submitChanges({
 				success: this.fnSuccess,
 				error: this.fnError
 			});
-			// var oModele = this.getView().getModel();
-			// var that = this;
-			// oModele.create("/requirementSet", this.requirement, {
-			// 	success: function (oData, oResponse) {
-			// 		sap.m.MessageToast.show("Your requirement is created successfully");
 
-			// 	},
-			// 	error: function (err, oResponse) {
-			// 		sap.m.MessageToast.show("Error while creating Requirement");
-			// 	}
-
-			// });
 		},
 			_setUIChanges: function (bHasUIChanges) {
 			if (this._bTechnicalErrors) {
-				// If there is currently a technical error, then force 'true'.
+		
 				bHasUIChanges = true;
 			} else if (bHasUIChanges === undefined) {
 				bHasUIChanges = this.getView().getModel().hasPendingChanges();
@@ -74,15 +60,17 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			oModele.setProperty("/hasUIChanges", bHasUIChanges);
 		},
 		fnSuccess: function (dataa, response) {
-			sap.m.MessageToast.show("Your requirement is created successfully");
+			var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("SuccessMsgRequirement");
+			sap.m.MessageToast.show(message);
 		},
 		fnError: function (ea) {
-			sap.m.MessageToast.show("Error while creating Requirement");
+			var message = sap.ui.getCore().getModel("i18n").getResourceBundle().getText("ErrorMsgRequirement");
+			sap.m.MessageToast.show(message);
 		},
 		onResetChanges: function (data) {
 	
 			this.oModel.resetChanges();
-			this._setUIChanges(false)
+			this._setUIChanges(false);
 
 		},onchangeModelValue : function (oEvt) {
 			if (oEvt.getParameter("escPressed")) {
